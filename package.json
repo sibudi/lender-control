@@ -8,14 +8,18 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "test": "npm run unit",
-    "build": "npm run clean && node build/build.js && npm run zip",
     "clean": "rm -rf dist/*",
-    "zip": "cd dist && touch dist.tar.gz && tar --exclude=dist.tar.gz -zcf dist.tar.gz ."
+    "compile": "node build/build.js",
+    "zip": "cd dist && touch dist.tar.gz && tar --exclude=dist.tar.gz -zcf dist.tar.gz .",
+    "deploy": "aliyun oss cp dist/dist.tar.gz oss://doit-build-5263863254564512/lender-control/ -f",
+    "build": "npm run clean && npm run compile && npm run zip",
+    "publish": "npm run build && npm run deploy"
   },
   "dependencies": {
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",
     "element-ui": "^2.8.2",
+    "nprogress": "^0.2.0",
     "vue": "^2.5.2",
     "vue-axios": "^2.1.5",
     "vue-i18n": "^8.0.0",

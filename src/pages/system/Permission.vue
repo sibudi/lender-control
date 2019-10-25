@@ -199,13 +199,18 @@
         data,
         store
       }) {
-         return (
-          <span><span><span> {data.permissionName}({data.permissionUrl}) </span></span><span style = "float: right; margin-right: 20px">
-          <el-button disabled={node.level!=1} type="success" size = "mini"  on-click = {() => this.addNode(data)} >添加子权限</el-button>
-          <el-button size = "mini" on-click = {() => this.edit(data)} >修改</el-button>
-          <el-button style="display:none;"  disabled={data.children&&data.children.length>0} type="danger" size = "mini"  on-click = {() => this.del(data)} >删除</el-button>
-          </span></span>
-        )
+         return //(
+          // <span>
+          //   <span>
+          //     <span> {data.permissionName}({data.permissionUrl}) </span>
+          //   </span>
+          //   <span style = "float: right; margin-right: 20px">
+          //     <el-button disabled={node.level!=1} type="success" size = "mini"  on-click = {() => this.addNode(data)} >添加子权限</el-button>
+          //     <el-button size = "mini" on-click = {() => this.edit(data)} >修改</el-button>
+          //     <el-button style="display:none;"  disabled={data.children&&data.children.length>0} type="danger" size = "mini"  on-click = {() => this.del(data)} >删除</el-button>
+          //   </span>
+          // </span>
+        //)
       },
       bindTree() {
         this.treeLoading = true

@@ -5,11 +5,15 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import ElementUI from 'element-ui';
 import locale from 'element-ui/lib/locale/lang/id'
-import 'element-ui/lib/theme-chalk/index.css';
 import App from './App'
 import VueRouter from 'vue-router'
-import routes from './common/router';
+import NProgress from 'nprogress'
 
+/* css */
+import 'element-ui/lib/theme-chalk/index.css';
+import 'nprogress/nprogress.css'
+
+import routes from './common/router';
 import Config from './common/config';
 import DataUtil from './common/dataUtil';
 
@@ -23,7 +27,22 @@ const router = new VueRouter({
   routes
 });
 
+NProgress.configure({ showSpinner: false });
+
 router.beforeEach((to, from, next) => {
+  NProgress.start();
+  let currentUrl = window.location.hash.split('#')[1].split('?')[0];
+  let isHavePermission = DataUtil.getPermissionSet().has(currentUrl);
+  if (!isHavePermission && !isHavePermissionInn && to.path !== '/unauthorized') {
+    //Need to ignore the path to avoid infinite loop
+    //ahalim1: Disable unauthorized for now
+    next();
+    //next('/unauthorized');
+    //NProgress.done();
+  }
+  else {
+    next();
+  }
   // let perMiss = DataUtil.getPermissionSet();  /*从localStorage中获取权限列表*/
   // if(perMiss.has(to.path)){       /*判断用户是否有该页面权限*/
   //   next()
@@ -32,6 +51,11 @@ router.beforeEach((to, from, next) => {
   // }
   next()
 });
+
+router.afterEach(transition => {
+  NProgress.done();
+});
+
 
 //ajax公共配置
 Vue.axios.defaults.baseURL = Config.host;
