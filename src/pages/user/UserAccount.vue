@@ -1,39 +1,38 @@
 <template>
   <section>
-    <el-form :inline="true" :model="searchForm" class="toolbar" label-position="right" label-width="70px">
+    <el-form :inline="true" :model="searchForm" class="toolbar" label-position="right" label-width="200px">
       <el-row>
-
-        <el-form-item label="姓名">
-          <el-input v-model="searchForm.realName" width="200"></el-input>
+        <el-form-item label="Nomor Ponsel">
+          <el-input v-model="searchForm.mobileNumber" width="217px"></el-input>
         </el-form-item>
-
-        <el-form-item label="手机号">
-          <el-input v-model="searchForm.mobileNumber" width="200"></el-input>
+        <el-form-item label="Nama Lengkap">
+          <el-input v-model="searchForm.realName" width="217px"></el-input>
         </el-form-item>
-
+      </el-row>
+      <el-row>
         <el-form-item label=" ">
-          <el-button @click="search" type="primary" style="width: 170px">查询</el-button>
+          <el-button @click="search" type="primary" >Cari</el-button>
         </el-form-item>
       </el-row>
     </el-form>
 
     <template>
-      <el-table :data="gridData" highlight-current-row v-loading="gridLoading" class="grid">
-        <el-table-column label="类型" prop="businessType"></el-table-column>
-        <el-table-column label="动账时间" prop="dealTime" >
-<!--           <template slot-scope="scope">
-            {{getUnixTime(scope.row.dealTime)}}
-          </template> -->
+      <el-table :data="gridData" highlight-current-row v-loading="gridLoading" class="grid" style="width: 100%">
+        <el-table-column label="Jenis Transaksi" prop="businessType"></el-table-column>
+        <el-table-column label="Waktu" prop="dealTime" width="200px">
+          <template slot-scope="scope">
+            {{scope.row.dealTime}}
+          </template>
         </el-table-column>
-        <el-table-column label="金额" prop="amount" ></el-table-column>
-        <el-table-column label="可用账户余额" prop="currentBanlance" ></el-table-column>
-        <el-table-column label="在投账户余额" prop="investBanlance" ></el-table-column>
-        <el-table-column label="锁定账户余额" prop="lockedBanlance"></el-table-column>
-        <el-table-column label="备注" prop="tradeInfo"></el-table-column>
+        <el-table-column label="Nominal" prop="amount" width="90px"></el-table-column>
+        <el-table-column label="Saldo" prop="currentBanlance" width="90px"></el-table-column>
+        <el-table-column label="Saldo;Investasi" prop="investBanlance" width="90px" :render-header="renderMultilineHeader"></el-table-column>
+        <el-table-column label="Saldo;Terkunci" prop="lockedBanlance" width="90px" :render-header="renderMultilineHeader"></el-table-column>
+        <!-- <el-table-column label="Catatan" prop="tradeInfo"></el-table-column> -->
       </el-table>
     </template>
 
-    <!--分页-->
+    <!--Pagination-->
     <el-pagination class="pager" @size-change="pageSizeChange" @current-change="pageIndexChange" :current-page="pageIndex" :page-size="pageSize"
                    layout="total, sizes, prev, pager, next, jumper" :total="dataTotal">
     </el-pagination>
@@ -62,7 +61,18 @@
         },
         methods:{
           getUnixTime(time){
-            return DataUtil.formatUnixTime(time);
+            return DataUtil.formatUnixTime(Date(time));
+          },
+          renderMultilineHeader(h, { column, $index }) {
+            return h('div', {
+              style: {
+                lineHeight: 1.7
+              }
+            }, [
+              h('span', column.label.split(';')[0]),
+              h('br'),
+              h('span', column.label.split(';')[1]),
+            ])
           },
           search() {
             this.bindGrid()

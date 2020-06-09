@@ -1,60 +1,60 @@
 <template>
   <section>
-    <!--列表-->
+    <!--List-->
     <template>
       <el-table :data="gridData" highlight-current-row v-loading="gridLoading" class="grid">
-        <el-table-column prop="realName" label="姓名">
+        <el-table-column prop="realName" label="Nama">
         </el-table-column>
-        <el-table-column prop="bankCode" label="所在银行">
+        <el-table-column prop="bankCode" label="Kode Bank">
         </el-table-column>
-        <el-table-column prop="lockedBalance" label="锁定账户">
+        <el-table-column prop="lockedBalance" label="Saldo Terkunci">
         </el-table-column>
-        <el-table-column prop="currentBalance" label="可用账户">
+        <el-table-column prop="currentBalance" label="Saldo">
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="Opsi">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="handleEdit(scope.row)">编辑</el-button>
-            <el-button type="text" size="small" @click="handleDetail(scope.row)">交易记录</el-button>
+            <el-button type="text" size="small" @click="handleEdit(scope.row)">Ubah</el-button>
+            <el-button type="text" size="small" @click="handleDetail(scope.row)">Catatan</el-button>
           </template>
         </el-table-column>
       </el-table>
     </template>
-    <!--分页-->
+    <!--Pagination-->
 <!--     <el-pagination class="pager" @size-change="pageSizeChange" @current-change="pageIndexChange" :current-page="pageIndex" :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper" :total="dataTotal">
     </el-pagination> -->
-    <!--添加-->
-    <el-dialog title="编辑" :visible.sync="addDialogVisible" v-model="addDialogVisible" :close-on-click-modal="false">
+    <!--Add new item-->
+    <el-dialog title="Ubah" :visible.sync="addDialogVisible" v-model="addDialogVisible" :close-on-click-modal="false">
       <el-form :model="addForm" label-position="left" label-width="140px" ref="addForm" :rules="inputRule">
-        <el-form-item label="交易类型"  prop="businessType">
+        <el-form-item label="Jenis Transaksi"  prop="businessType">
           <el-select v-model="addForm.businessType" clearable @change="handleChange">
             <el-option v-for="item in passList" :key="item.code" :label="item.name" :value="item.code">
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="交易金额" prop="amount">
+        <el-form-item label="Nominal Transaksi" prop="amount">
           <el-input v-model="addForm.amount " type="number"><template slot="prepend">Rp</template></el-input>
         </el-form-item>
-        <el-form-item label="备注" prop="tradeInfo">
+        <el-form-item label="Catatan" prop="tradeInfo">
           <el-input v-model="addForm.tradeInfo" type="textarea" auto-complete="off"  :maxlength="1000"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addFormSubmit" :loading="addFormLoading">添 加</el-button>
+        <el-button @click="addDialogVisible = false">Batal</el-button>
+        <el-button type="primary" @click="addFormSubmit" :loading="addFormLoading">Tambah</el-button>
       </div>
     </el-dialog>
 
-    <!-- 记录明细 -->
-    <el-dialog title="人工添加记录明细" :visible.sync="dialogTableVisible" width="85%" :close-on-click-modal="false">
+    <!-- Record Details -->
+    <el-dialog title="Tambah Manual" :visible.sync="dialogTableVisible" width="85%" :close-on-click-modal="false">
       <el-table :data="dialogData"  v-loading="diagridLoading">
-        <el-table-column property="dealTime" label="添加时间"></el-table-column>
-        <el-table-column property="amount" label="交易金额"></el-table-column>
-        <el-table-column property="businessType" label="交易类型"></el-table-column>
-        <el-table-column property="lastBanlance" label="交易前金额"></el-table-column>
-        <el-table-column property="currentBanlance" label="交易后金额"></el-table-column>
-        <el-table-column property="createUser" label="操作人"></el-table-column>
-        <el-table-column property="tradeInfo" label="备注">
+        <el-table-column property="dealTime" label="Waktu Transaksi"></el-table-column>
+        <el-table-column property="amount" label="Nominal Transaksis"></el-table-column>
+        <el-table-column property="businessType" label="Jenis Transaksi"></el-table-column>
+        <el-table-column property="lastBanlance" label="Saldo Terakhir"></el-table-column>
+        <el-table-column property="currentBanlance" label="Saldo Akhir"></el-table-column>
+        <el-table-column property="createUser" label="Operator"></el-table-column>
+        <el-table-column property="tradeInfo" label="Catatan">
           <template slot-scope="scope">
             <el-popover trigger="hover" placement="right">
               <p class="hideTooMuch">{{scope.row.tradeInfo}}</p>
@@ -92,17 +92,17 @@
         inputRule: {
           businessType: [{
             required: true,
-            message: '请选择交易类型',
+            message: 'Silakan pilih jenis transaksi',
             trigger: 'change'
           }],
           amount: [{
             required: true,
-            message: '请输入交易金额',
+            message: 'Silakan masukan nominal transaksi',
             trigger: 'blur'
           }],
           tradeInfo: [{
             required: true,
-            message: '请输入备注',
+            message: 'Silakan masukan catatan',
             trigger: 'blur'
           }]
         },
@@ -111,10 +111,10 @@
         addFormLoading: false,
         passList:[{
           code:'Isi ulang',
-          name:'充值'
+          name:'Isi Ulang'
         },{
           code:'Penarikan Berhasil',
-          name:'提现'
+          name:'Penarikan'
         }],
 
         dialogTableVisible: false,
@@ -169,7 +169,7 @@
                 this.addDialogVisible = false
                 this.bindGrid()
                 this.$message({
-                  message: '操作成功',
+                  message: 'Sukses',
                   type: 'success'
                 });
               } else {

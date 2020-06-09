@@ -2,41 +2,41 @@
   <section>
     <el-form :inline="true" :model="searchForm" class="toolbar" label-position="right" label-width="100px">
       <el-row>
-        <el-form-item label="应打款日期">
+        <el-form-item label="Tanggal Pembayaran">
           <div class="block">
-            <el-date-picker v-model="searchForm.timeMin" type="date" :picker-options="pickerOptions1" :editable="false" placeholder="选择日期"></el-date-picker> ~
-            <el-date-picker v-model="searchForm.timeMax" type="date" :picker-options="pickerOptions2" :editable="false" placeholder="选择日期"></el-date-picker>
+            <el-date-picker v-model="searchForm.timeMin" type="date" :picker-options="pickerOptions1" :editable="false" placeholder="Pilih tanggal"></el-date-picker> ~
+            <el-date-picker v-model="searchForm.timeMax" type="date" :picker-options="pickerOptions2" :editable="false" placeholder="Pilih tanggal"></el-date-picker>
           </div>
         </el-form-item>
-        <el-form-item label="是否打款" prop="status">
-          <el-select v-model="searchForm.status" placeholder="请选择" clearable>
+        <el-form-item label="Apakah akan Membayar" prop="status">
+          <el-select v-model="searchForm.status" placeholder="Silakan pilih" clearable>
             <el-option v-for="item in payList" :label="item.name" :key="item.code" :value="item.code"></el-option>
           </el-select>
         </el-form-item>
 
         <el-form-item label=" ">
-          <el-button @click="search" type="primary" style="width: 120px">查询</el-button>
+          <el-button @click="search" type="primary" style="width: 120px">Cari</el-button>
         </el-form-item>
       </el-row>
     </el-form>
 
     <template>
       <el-table :data="gridData" highlight-current-row v-loading="gridLoading" class="grid">
-        <el-table-column label="应打款日期" prop="id">
+        <el-table-column label="Waktu Pembayaran" prop="id">
           <template slot-scope="scope">
             <span>{{getUnixTime(scope.row.createTime)}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="投资机构" prop="fromUser" ></el-table-column>
-        <el-table-column label="超级投资人" prop="toUser" ></el-table-column>
-        <el-table-column label="打款账户" prop="toAccount" ></el-table-column>
-        <el-table-column label="应打款金额" prop="amount" ></el-table-column>
-        <el-table-column label="是否打款" prop="status">
+        <el-table-column label="Pendana Lembaga" prop="fromUser" ></el-table-column>
+        <el-table-column label="Pendana" prop="toUser" ></el-table-column>
+        <el-table-column label="Akun Pembayaran" prop="toAccount" ></el-table-column>
+        <el-table-column label="Nominal Pembayaran" prop="amount" ></el-table-column>
+        <el-table-column label="Apakah akan Membayar" prop="status">
           <template slot-scope="scope">
-            {{scope.row.status==1?'否':'是'}}
+            {{scope.row.status==1?'Tidak':'Ya'}}
           </template>
         </el-table-column>
-        <el-table-column label="打款备注" prop="remark" >
+        <el-table-column label="Catatan" prop="remark" >
           <template slot-scope="scope">
             <el-popover trigger="hover" placement="right">
               <p class="hideTooMuch">{{scope.row.remark}}</p>
@@ -46,41 +46,41 @@
             </el-popover>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="130">
+        <el-table-column label="Opsi" width="130">
           <template slot-scope="scope">
-            <el-button type="text" size="small" v-if="scope.row.status==1" @click="click(scope.row)">编辑</el-button>
-            <el-button type="text" size="small" v-if="scope.row.status==2" disabled>编辑</el-button>
+            <el-button type="text" size="small" v-if="scope.row.status==1" @click="click(scope.row)">Ubah</el-button>
+            <el-button type="text" size="small" v-if="scope.row.status==2" disabled>Ubah</el-button>
           </template>
         </el-table-column>
 
       </el-table>
     </template>
 
-    <!--分页-->
+    <!--Pagination-->
     <el-pagination class="pager" @size-change="pageSizeChange" @current-change="pageIndexChange" :current-page="pageIndex" :page-size="pageSize"
                    layout="total, sizes, prev, pager, next, jumper" :total="dataTotal">
     </el-pagination>
 
 
-    <el-dialog title="编辑" :visible.sync="dialogTableVisible" width='45%'>
+    <el-dialog title="Ubah" :visible.sync="dialogTableVisible" width='45%'>
       <el-form :model="editForm" label-position="left" label-width="140px" ref="editForm"  :rules="editFormRule">
-        <el-form-item label="是否付款" prop="dealStatus">
+        <el-form-item label="Apakah akan Membayar" prop="dealStatus">
           <el-select v-model="editForm.dealStatus" clearable>
             <el-option v-for="item in payList" :key="item.code" :label="item.name" :value="item.code">
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="付款日期"  prop="payTime">
-             <el-date-picker v-model="editForm.payTime"  type="date" placeholder="选择日期"></el-date-picker>
+        <el-form-item label="Tanggal Pembayaran"  prop="payTime">
+             <el-date-picker v-model="editForm.payTime"  type="date" placeholder="Pilih tanggal"></el-date-picker>
         </el-form-item>
-        <el-form-item label="备注（非必填）" prop="remark">
+        <el-form-item label="Catatan" prop="remark">
           <el-input v-model="editForm.remark " type="textarea" auto-complete="off" :maxlength="1000"></el-input>
         </el-form-item>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogTableVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addFormSubmit" :loading="refuseOrderLoading">提 交</el-button>
+        <el-button @click="dialogTableVisible = false">Batal</el-button>
+        <el-button type="primary" @click="addFormSubmit" :loading="refuseOrderLoading">Ubah</el-button>
       </div>
     </el-dialog>
 
@@ -115,9 +115,9 @@
               timeMax:''
             },
             payList:[{
-              code:'1',name:'否'
+              code:'1',name:'Tidak'
             },{
-              code:'2',name:'是'
+              code:'2',name:'Ya'
             }],
             gridLoading: false,
             gridData: [],
@@ -135,12 +135,12 @@
             editFormRule: {
               dealStatus: [{
                 required: true,
-                message: '请选择交易类型',
+                message: 'Silakan pilih jenis transaksi',
                 trigger: 'change'
               }],
               payTime: [{
                 required: true,
-                message: '请选择付款日期',
+                message: 'Silakan pilih tanggal pembayaran',
                 trigger: 'blur'
               }]
             },
@@ -200,7 +200,7 @@
                     this.dialogTableVisible = false
                     this.bindGrid()
                     this.$message({
-                      message: '操作成功',
+                      message: 'Berhasil mengubah',
                       type: 'success'
                     });
                   } else {

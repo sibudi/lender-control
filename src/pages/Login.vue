@@ -123,18 +123,15 @@
   }
   .bg {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     position: absolute;
     top: 0;
     left: 0;
     background: url("../assets/img/bg.png");
     background-repeat: no-repeat;
-    background-size: 100%, 100%;
     overflow: hidden;
    }
 </style>
-
-
 
 // WEBPACK FOOTER //
 // src/pages/Login.vue

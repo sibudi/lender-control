@@ -1,49 +1,49 @@
 <template>
   <section>
-    <!--工具条-->
+    <!--Toolbar-->
     <el-form :inline="true" class="toolbar">
       <el-form-item>
-        <el-button @click="addRoot" type="success">添加根节点</el-button>
+        <el-button @click="addRoot" type="success">Tambah Akses</el-button>
       </el-form-item>
     </el-form>
-    <!--列表-->
+    <!--List-->
     <el-tree :data="treeData" :props="defaultProps" node-key="id" v-loading="treeLoading" default-expand-all :expand-on-click-node="false"
       :render-content="renderContent"  ref="tree">
     </el-tree>
-    <!--添加-->
-    <el-dialog title="添加权限" :visible.sync="addDialogVisible" v-model="addDialogVisible" :close-on-click-modal="false" size="tiny">
+    <!--Add new item-->
+    <el-dialog title="Tambah Akses" :visible.sync="addDialogVisible" v-model="addDialogVisible" :close-on-click-modal="false" size="tiny">
       <el-form :model="addForm" label-position="left" label-width="80px" :rules="inputRule" ref="addForm">
-        <el-form-item label="Code" prop="permissionCode">
+        <el-form-item label="Kode" prop="permissionCode">
           <el-input v-model="addForm.permissionCode" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="名称" prop="permissionName">
+        <el-form-item label="Nama" prop="permissionName">
           <el-input v-model="addForm.permissionName" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="路径" prop="permissionUrl">
+        <el-form-item label="URL" prop="permissionUrl">
           <el-input v-model="addForm.permissionUrl" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addFormSubmit" :loading="addFormLoading">提 交</el-button>
+        <el-button @click="addDialogVisible = false">Batal</el-button>
+        <el-button type="primary" @click="addFormSubmit" :loading="addFormLoading">Tambah</el-button>
       </div>
     </el-dialog>
-    <!--修改-->
-    <el-dialog title="修改权限" v-model="editDialogVisible" :close-on-click-modal="false" size="tiny">
+    <!--Edit dialog-->
+    <el-dialog title="Ubah Akses" :visible.sync="editDialogVisible" :close-on-click-modal="false" size="tiny">
       <el-form :model="editForm" label-position="left" label-width="80px" :rules="inputRule" ref="editForm">
-        <el-form-item label="Code" prop="permissionCode">
+        <el-form-item label="Kode" prop="permissionCode">
           <el-input v-model="editForm.permissionCode" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="名称" prop="permissionName">
+        <el-form-item label="Nama" prop="permissionName">
           <el-input v-model="editForm.permissionName" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="路径" prop="permissionUrl">
+        <el-form-item label="URL" prop="permissionUrl">
           <el-input v-model="editForm.permissionUrl" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="editDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editFormSubmit" :loading="editFormLoading">提 交</el-button>
+        <el-button @click="editDialogVisible = false">Batal</el-button>
+        <el-button type="primary" @click="editFormSubmit" :loading="editFormLoading">Ubah</el-button>
       </div>
     </el-dialog>
   </section>
@@ -75,17 +75,17 @@
         inputRule: {
           permissionCode: [{
             required: true,
-            message: '请输入Code',
+            message: 'Silakan masukkan kode',
             trigger: 'blur'
           }],
           permissionName: [{
             required: true,
-            message: '请输入名称',
+            message: 'Silakan masukkan nama',
             trigger: 'blur'
           }],
           permissionUrl: [{
             required: true,
-            message: '请输入路径',
+            message: 'Silakan masukkan URL',
             trigger: 'blur'
           }]
         },
@@ -115,7 +115,7 @@
         this.editForm.permissionUrl = row.permissionUrl
       },
       del(row) {
-        this.$confirm('确认要删除吗?', '提示', {
+        this.$confirm('Anda yakin akan menghapus akses?', 'Konfirmasi', {
           type: 'warning'
         }).then(() => {
           let _data = {
@@ -127,7 +127,7 @@
               if (0 == data.code) {
                 this.bindTree()
                 this.$message({
-                  message: '删除记录成功',
+                  message: 'Berhasil menghapus akses',
                   type: 'success'
                 });
               } else {
@@ -151,7 +151,7 @@
                 this.addDialogVisible = false
                 this.bindTree()
                 this.$message({
-                  message: '添加成功',
+                  message: 'Berhasil menambahkan akses',
                   type: 'success'
                 });
               } else {
@@ -179,7 +179,7 @@
                 this.editDialogVisible = false
                 this.bindTree()
                 this.$message({
-                  message: '修改成功',
+                  message: 'Berhasil mengubah akses',
                   type: 'success'
                 });
               } else {
@@ -199,18 +199,13 @@
         data,
         store
       }) {
-         return //(
-          // <span>
-          //   <span>
-          //     <span> {data.permissionName}({data.permissionUrl}) </span>
-          //   </span>
-          //   <span style = "float: right; margin-right: 20px">
-          //     <el-button disabled={node.level!=1} type="success" size = "mini"  on-click = {() => this.addNode(data)} >添加子权限</el-button>
-          //     <el-button size = "mini" on-click = {() => this.edit(data)} >修改</el-button>
-          //     <el-button style="display:none;"  disabled={data.children&&data.children.length>0} type="danger" size = "mini"  on-click = {() => this.del(data)} >删除</el-button>
-          //   </span>
-          // </span>
-        //)
+       return (
+        <span style="width:100%"><span><span>{data.permissionName} ({data.permissionUrl})</span></span><span style = "float: right; margin-right: 20px">
+        <el-button disabled={node.level!=1} type="success" size = "mini" style="padding:5px" on-click = {() => this.addNode(data)} >Tambah</el-button>
+        <el-button size = "mini" style="padding:5px" on-click = {() => this.edit(data)} >Ubah</el-button>
+        <el-button disabled={data.children&&data.children.length>0} type="danger" size = "mini" style="display:none;padding:5px" on-click = {() => this.del(data)} >Hapus</el-button>
+        </span></span>
+        )
       },
       bindTree() {
         this.treeLoading = true

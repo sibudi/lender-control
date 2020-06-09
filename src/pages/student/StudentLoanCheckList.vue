@@ -1,93 +1,96 @@
 <template>
   <section>
-    <!--工具条-->
-    <el-form :inline="true" :model="searchForm" class="toolbar" label-position="right" label-width="70px">
+    <!--Toolbar-->
+    <el-form :inline="true" :model="searchForm" class="toolbar" label-position="right" label-width="150px">
       <el-row>
-        <el-form-item label="订单编号">
+        <el-form-item label="Nomor Permohonan">
           <el-input v-model="searchForm.id" width="200"></el-input>
         </el-form-item>
-        <el-form-item label="姓名">
+        <el-form-item label="Nama">
           <el-input v-model="searchForm.realName" width="200"></el-input>
         </el-form-item>
-        <!--<el-form-item label="订单状态" prop="status">
-          <el-select v-model="searchForm.status" placeholder="请选择" clearable>
+      </el-row>
+      <el-row>
+        <!--<el-form-item label="Status" prop="status">
+          <el-select v-model="searchForm.status" placeholder="Silakan pilih" clearable>
             <el-option v-for="item in orderStatusList" :label="item.name" :key="item.code" :value="item.code"></el-option>
           </el-select>
         </el-form-item>-->
-        <el-form-item label="申请金额">
+        <el-form-item label="Nominal">
           <el-input v-model="searchForm.amountApply" width="200"></el-input>
         </el-form-item>
-        <el-form-item label="申请期限">
+      
+        <el-form-item label="Durasi">
           <el-input v-model="searchForm.term" width="200"></el-input>
         </el-form-item>
-
-        <el-form-item label="注册日期">
+      </el-row>
+      <el-row>
+        <el-form-item label="Waktu Pendaftaran">
           <div class="block">
             <el-date-picker
               v-model="searchForm.createTimeMin"
               type="date"
 
               :editable="false"
-              placeholder="选择日期">
+              placeholder="Pilih tanggal">
             </el-date-picker> ~
             <el-date-picker
               v-model="searchForm.createTimeMax"
               type="date"
 
               :editable="false"
-              placeholder="选择日期">
+              placeholder="Pilih tanggal">
             </el-date-picker>
           </div>
         </el-form-item>
-
-
-
+      </el-row>
+      <el-row>
         <el-form-item label=" ">
-          <el-button @click="search" type="primary" style="width: 170px">查询</el-button>
+          <el-button @click="search" type="primary" style="width: 170px">Cari</el-button>
         </el-form-item>
       </el-row>
     </el-form>
-    <!--列表-->   <!--:picker-options="pickerOptions1"  :picker-options="pickerOptions2"  -->
+    <!--List-->   <!--:picker-options="pickerOptions1"  :picker-options="pickerOptions2"  -->
 
 
     <template>
       <el-table :data="gridData" highlight-current-row v-loading="gridLoading" class="grid">
-        <el-table-column label="订单编号" prop="id" width="280">
+        <el-table-column label="Nomor;Permohonan" prop="id" width="130" :render-header="renderMultilineHeader">
         </el-table-column>
-        <el-table-column label="姓名" prop="realName" width="180">
+        <el-table-column label="Nama" prop="realName" width="180">
         </el-table-column>
-        <!--<el-table-column label="手机号" prop="mobileNumber" width="130">
+        <!--<el-table-column label="Nomor Ponsel" prop="mobileNumber" width="130">
         </el-table-column>-->
-        <el-table-column label="复借订单" prop="isAgain">
+        <el-table-column label="Pesan Ulang" prop="isAgain">
           <template slot-scope="scope">
-            <el-tag :type="scope.row.isAgain==1? 'success' : 'danger'" close-transition>{{scope.row.isAgain==1?'是':'否'}}</el-tag>
+            <el-tag :type="scope.row.isAgain==1? 'success' : 'danger'" close-transition>{{scope.row.isAgain==1?'Ya':'Tidak'}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="订单状态" prop="status">
+        <el-table-column label="Status" prop="status" width="90px">
           <template slot-scope="scope">
             <span>{{getOrderType(scope.row.status)}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="申请金额" prop="amountApply">
+        <el-table-column label="Nominal" prop="amountApply" width="90px">
         </el-table-column>
-        <el-table-column label="申请期限" prop="term">
+        <el-table-column label="Durasi" prop="term">
         </el-table-column>
 
-        <el-table-column label="申请时间" prop="createTime" min-width="116">
+        <el-table-column label="Waktu Pembuatan" prop="createTime" min-width="116">
           <template slot-scope="scope">
             <span>{{getUnixTime(scope.row.createTime)}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="100">
+        <el-table-column label="Opsi" width="100">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="click(scope.row)">查看详情</el-button>
+            <el-button type="text" size="small" @click="click(scope.row)">Detail</el-button>
           </template>
         </el-table-column>
 
       </el-table>
     </template>
 
-    <!--分页-->
+    <!--Pagination-->
     <el-pagination class="pager" @size-change="pageSizeChange" @current-change="pageIndexChange" :current-page="pageIndex" :page-size="pageSize"
                    layout="total, sizes, prev, pager, next, jumper" :total="dataTotal">
     </el-pagination>
@@ -114,7 +117,7 @@
           createTimeMin:'',
           createTimeMax:''
         },
-        //订单状态
+        //Status
         //isAgainOrder:enums.isAgainOrder,
         //orderStatus:enums.orderPro,
         orderStatusList:enums.studentLoanStatus,
@@ -136,6 +139,17 @@
       }
     },
     methods:{
+      renderMultilineHeader(h, { column, $index }) {
+        return h('div', {
+          style: {
+            lineHeight: 1.7
+          }
+        }, [
+          h('span', column.label.split(';')[0]),
+          h('br'),
+          h('span', column.label.split(';')[1]),
+        ])
+      },
       getUnixTime(time){
         return DataUtil.formatUnixTime(time);
       },

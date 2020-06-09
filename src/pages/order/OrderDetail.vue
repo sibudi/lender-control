@@ -1,22 +1,22 @@
 <template>
   <section class="orderBox">
-    <!--客户信息-->
+    <!--Customer Information-->
     <template>
       <el-row>
-        <h1 class="one-title">订单详情</h1>
+        <h1 class="one-title">Detail Permohonan</h1>
         <el-col :span="8" class="grid-content">
-          <div><span>订单号:</span><span></span></div>
-          <div><span>下单时间:</span><span></span></div>
-          <div><span>债匹时间:</span><span></span></div>
+          <div><span>Nomor Permohonan:</span><span></span></div>
+          <div><span>Waktu Pembuatan:</span><span></span></div>
+          <div><span>Waktu Peminjaman:</span><span></span></div>
         </el-col>
         <el-col :span="8" class="grid-content">
-          <div><span>订单金额:</span><span></span></div>
-          <div><span>生效时间:</span><span></span></div>
-          <div><span>到期时间:</span><span></span></div>
+          <div><span>Nominal Permohonan:</span><span></span></div>
+          <div><span>Waktu Efektif:</span><span></span></div>
+          <div><span>Waktu Kadaluwarsa:</span><span></span></div>
         </el-col>
         <el-col :span="8" class="grid-content">
-          <div><span>姓名:</span><span></span></div>
-          <div><span>产品类型:</span><span></span></div>
+          <div><span>Nama:</span><span></span></div>
+          <div><span>Jenis Produk:</span><span></span></div>
         </el-col>
       </el-row>
       <div class="divid-line"></div>
@@ -24,27 +24,29 @@
 
   
 
-    <!-- 历史订单 -->
+    <!-- Order History -->
     <template>
       <el-row>
         <div class="flex aic">
-          <h1 class="one-title">债匹关系</h1>
-          <div class="f1">债权包11111111111111111号，债权包金额：1860000</div>
-          <div class="exports_cel">导出EXCEL</div>
+          <h1 class="one-title">Kontrak Kerja</h1>
+          <div class="f1">Paket Hutang 11111111111111111，Jumlah Paket Hutang：1860000</div>
+          <div class="exports_cel">Ekspor Excel</div>
         </div>
         <el-table :data="historyData" v-loading="historyLoading" max-height="300">
-          <el-table-column prop="orderNo" label="投资人姓名"></el-table-column>
-          <el-table-column prop="status" label="订单号"></el-table-column>
-          <el-table-column prop="amountApply" label="投资金额"></el-table-column>
-          <el-table-column prop="borrowingTerm" label="占比"></el-table-column>
-          <el-table-column prop="orderNo" label="借款人姓名"></el-table-column>
-          <el-table-column prop="status" label="债权编号"></el-table-column>
-          <el-table-column prop="amountApply" label="借款金额"></el-table-column>
-          <el-table-column prop="borrowingTerm" label="借款占比"></el-table-column>
-          <el-table-column prop="orderNo" label="借款状态"></el-table-column>
-          <el-table-column prop="status" label="匹配时间"></el-table-column>
-          <el-table-column prop="amountApply" label="应回款时间"></el-table-column>
-          <el-table-column prop="borrowingTerm" label="实回款时间"></el-table-column>
+          <el-table-column prop="orderNo" label="Nama Pendana"></el-table-column>
+          <el-table-column prop="status" label=""></el-table-column>
+          <el-table-column prop="amountApply" label="Nominal"></el-table-column>
+          <el-table-column prop="borrowingTerm" label="Proporsi"></el-table-column>
+
+          <el-table-column prop="orderNo" label="Nama Peminjam"></el-table-column>
+          <el-table-column prop="status" label="Nomor Klaim"></el-table-column>
+          <el-table-column prop="amountApply" label="Jumlah Pinjaman"></el-table-column>
+          <el-table-column prop="borrowingTerm" label="Rasio Pinjaman"></el-table-column>
+          
+          <el-table-column prop="orderNo" label="Status Pinjaman"></el-table-column>
+          <el-table-column prop="status" label="Waktu Pencocokan"></el-table-column>
+          <el-table-column prop="amountApply" label="Waktu Pembayaran"></el-table-column>
+          <el-table-column prop="borrowingTerm" label="Waktu Pembayaran Aktual"></el-table-column>
         </el-table>
       </el-row>
       <div class="divid-line"></div>
@@ -60,7 +62,7 @@
 <script>
   import enums from '../../common/enum'
   import DataUtil from '../../common/dataUtil'
-  import Config from '../../common/config'
+  // import Config from '../../common/config'
   export default {
     data () {
       let compareDate = (time) => {
@@ -80,7 +82,7 @@
   }
 </script>
 <style>
-    /* 标题 */
+    /* Title */
     .main-title{
       font-size: 22px;
       margin-top: -15px;

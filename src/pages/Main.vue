@@ -22,11 +22,12 @@
       <aside>
         <el-menu :default-active="$route.path" theme="dark" unique-opened router>
           <template v-for="(item,index) in menuList ">
-            <el-submenu v-if="item.children && item.children.length" :index="index+''">
+            <el-submenu v-if="item.children && item.children.length" :key="index+''" :index="item.id">
               <template slot="title"><i class="el-icon-menu"></i>{{item.permissionName}}</template>
-              <el-menu-item v-for="(node,i) in item.children" :key="node.permissionUrl" :index="node.permissionUrl"><i class="el-icon-document"></i>{{node.permissionName}}</el-menu-item>
+              <el-menu-item v-for="(node,i) in item.children" :key="node.permissionUrl" :index="node.permissionUrl">
+                <i :key="i" class="el-icon-document"></i>{{node.permissionName}} </el-menu-item>
             </el-submenu>
-            <el-menu-item v-else :index="item.permissionUrl"><i class="el-icon-document"></i>{{item.permissionName}}</el-menu-item>
+            <el-menu-item v-else :key="item.permissionUrl"><i class="el-icon-document"></i>{{item.permissionName}}</el-menu-item>
           </template>
         </el-menu>
       </aside>
@@ -59,56 +60,7 @@
       return {
         userName: '',
         userUuid:DataUtil.uuid(),
-        menuList: [/*{
-          permissionCode: "N1",
-          permissionName: "系统管理",
-          permissionUrl: "/",
-          children:[{
-            permissionCode: "N11",
-            permissionName: "字典管理",
-            permissionUrl: "/AppVersion"
-          },{
-            permissionCode: "N12",
-            permissionName: "投资人管理",
-            permissionUrl: "/SuperAccountManage"
-          }]
-        },*//*{
-          permissionCode: "N2",
-          permissionName: "用户管理",
-          permissionUrl: "/",
-          children:[{
-            permissionCode: "N21",
-            permissionName: "实名未通过列表",
-            permissionUrl: "/UserAuthCheckList"
-          }]
-        },*/
-        // {
-        //   permissionCode: "N3",
-        //   permissionName: "学生管理",
-        //   permissionUrl: "/",
-        //   children:[{
-        //     permissionCode: "N31",
-        //     permissionName: "学生申请列表",
-        //     permissionUrl: "/StudentLoanList"
-        //   },{
-        //     permissionCode: "N32",
-        //     permissionName: "待审核列表",
-        //     permissionUrl: "/StudentLoanCheckList"
-        //   }]
-        // },{
-        //   permissionCode: "N4",
-        //   permissionName: "理财管理",
-        //   permissionUrl: "/",
-        //   children:[{
-        //     permissionCode: "N31",
-        //     permissionName: "理财记录",
-        //     permissionUrl: "/OrderList"
-        //   },{
-        //     permissionCode: "N32",
-        //     permissionName: "理财流水",
-        //     permissionUrl: "/PayAccountList"
-        //   }]
-        // }
+        menuList: [
         ]
       }
     },
@@ -116,7 +68,7 @@
       changePassword() {
         //this.$refs.changePassword.show()
       },
-      //退出登录
+      //Logout
       logout() {
         this.$confirm('Apakah Anda yakin akan keluar?', 'Pemberitahuan', {}).then(() => {
           DataUtil.sid('')
@@ -204,7 +156,7 @@
   }
 
   .main aside {
-    width: 200px;
+    width: 270px; /* Adjust according to side menu width */
     overflow-y: auto;
     overflow: auto;
     height: 100%;
@@ -213,24 +165,21 @@
   .main ul {
     margin-bottom: 50px;
   }
-
   .el-submenu [class^=fa] {
     vertical-align: baseline;
-    margin-right: 10px;
+    margin-right: 5px;
   }
-
   .el-menu-item [class^=fa] {
     vertical-align: baseline;
     margin-right: 10px;
   }
-
   .content-container {
     background: #f1f2f7;
     position: absolute;
     right: 0px;
     top: 0px;
     bottom: 0px;
-    left: 200px;
+    left: 270px; /* Adjust according to side menu width */
     overflow-y: scroll;
     padding: 20px;
   }

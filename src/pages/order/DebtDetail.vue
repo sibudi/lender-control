@@ -1,35 +1,35 @@
 <template>
   <section>
     <div class='title'>
-      <div>订单号：{{rights.id}}</div>
-      <div>生成时间：{{rights.createTime}}</div>
+      <div>Nomor Permohonan：{{rights.id}}</div>
+      <div>Waktu Pembuatan{{rights.createTime}}</div>
     </div>
     <template>
       <el-table :data="gridData" highlight-current-row v-loading="gridLoading" class="grid">
-        <el-table-column label="债权编号" prop="creditorNo">
+        <el-table-column label="Nomor Klaim" prop="creditorNo">
         </el-table-column>
-        <el-table-column label="投资金额" prop="amountBuy">
+        <el-table-column label="Jumlah Investasi" prop="amountBuy">
         </el-table-column>
-<!--         <el-table-column label="购买状态" prop="status">
+<!--         <el-table-column label="Status Pembelian" prop="status">
           <template slot-scope="scope">
             <span>{{getOrderStatus(scope.row.status)}}</span>
           </template>
         </el-table-column> -->
-        <el-table-column label="债权金额" prop="amountApply">
+        <el-table-column label="Jumlah Kredit" prop="amountApply">
         </el-table-column>
-        <el-table-column label="债权状态">
+        <el-table-column label="Status Hutang">
           <template slot-scope="scope">
             <span>{{getOrderStatus(scope.row.status)}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="借款人姓名" prop="realName">
+        <el-table-column label="Nama Peminjam" prop="realName">
         </el-table-column>
-        <el-table-column label="借款人身份证号" prop="idCardNo">
+        <el-table-column label="Nomor Id Peminjam" prop="idCardNo">
         </el-table-column>
       </el-table>
     </template>
 
-    <!--分页-->
+    <!--Pagination-->
     <el-pagination class="pager" @size-change="pageSizeChange" @current-change="pageIndexChange" :current-page="pageIndex" :page-size="pageSize"
                    layout="total, sizes, prev, pager, next, jumper" :total="dataTotal">
     </el-pagination>
@@ -62,9 +62,19 @@
       },
     getOrderStatus(status){
       let list = [
-      {code:'1',name:'投标中'},{code:'2',name:'锁定中'},{code:'3',name:'满标'},{code:'4',name:'放款中'},{code:'5',name:'放款失败'}
-      ,{code:'6',name:'放款成功'},{code:'7',name:'放款清分成功'},{code:'8',name:'放款成功'},{code:'9',name:'还款处理中'},{code:'10',name:'已还款'}
-      ,{code:'11',name:'逾期已还款'},{code:'12',name:'还款清分成功'},{code:'13',name:'已还款'}];
+      {code: '1', name: 'Tawaran'}, 
+      {code: '2', name: 'Dikunci'}, 
+      {code: '3', name: 'Lengkap'}, 
+      {code: '4 ', name:'Dalam Pinjaman'}, 
+      {code:' 5 ', name:'Pinjaman Gagal'},
+      {code: '6', name: 'Pengiriman Berhasil'},
+      {code: '7', name: 'Pengiriman Kliring Berhasil'},
+      {code: '8', name: 'Peminjaman Berhasil'},
+      {code : '9', name: 'Pelunasan dalam Proses'},
+      {code: '10', name: 'Dilunasi'},
+      {code: '11', name: 'Pelunasan Terlambat'}, 
+      {code: '12', name: 'Pelunasan Kliring Berhasil'}, 
+      {code: '13', name: 'Dilunasi' }];
       let re = '';
       list.forEach(v=>{if(v.code == status){re = v.name;return;}})
       return re;

@@ -1,43 +1,65 @@
 <template>
   <section>
-    <!--工具条-->
+    <!--Toolbar-->
     <el-form :inline="true" class="toolbar">
       <el-form-item>
-        <el-button @click="add" type="primary">添加超级投资人</el-button>
+        <el-button @click="add" type="primary">Tambah Pendana</el-button>
       </el-form-item>
     </el-form>
-    <!--列表-->
+    <!--List-->
     <template>
       <el-table :data="gridData" highlight-current-row v-loading="gridLoading" class="grid">
-        <el-table-column prop="realName" label="姓名">
+        <el-table-column prop="realName" label="Nama">
         </el-table-column>
-        <el-table-column prop="mobileNumber" label="手机号">
+        <el-table-column prop="mobileNumber" label="Nomor Ponsel">
         </el-table-column>
-        <el-table-column prop="bankCarkNo" label="银行卡账号">
+        <el-table-column prop="bankCarkNo" label="Nomor Rekening">
         </el-table-column>
-        <el-table-column prop="currentBalance" label="账户余额">
+        <el-table-column prop="currentBalance" label="Saldo">
         </el-table-column>
-        <el-table-column prop="lockedBalance" label="锁定金额">
+        <el-table-column prop="lockedBalance" label="Saldo Terkunci">
+        </el-table-column>
+        <el-table-column label="Action">
+          <template slot-scope="scope">
+            <div>
+              <el-button type="primary" size="small" @click="topup(scope.row)">Topup</el-button>
+            </div>
+          </template>
         </el-table-column>
       </el-table>
     </template>
-    <!--分页-->
+    <!--Pagination-->
 <!--     <el-pagination class="pager" @size-change="pageSizeChange" @current-change="pageIndexChange" :current-page="pageIndex" :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper" :total="dataTotal">
     </el-pagination> -->
-    <!--添加-->
-    <el-dialog title="添加超级投资人" :visible.sync="addDialogVisible" v-model="addDialogVisible" :close-on-click-modal="false" size="small">
-      <el-form :model="addForm" label-position="left" label-width="100px" :rules="inputRule" ref="addForm">
-        <el-form-item label="手机号" prop="mobileNumber">
+    <!--Add new item-->
+    <el-dialog title="Tambah Pendana" :visible.sync="addDialogVisible" v-model="addDialogVisible" :close-on-click-modal="false" size="small">
+      <el-form :model="addForm" label-position="left" label-width="125px" :rules="inputRule" ref="addForm">
+        <el-form-item label="Nomor Ponsel" prop="mobileNumber">
           <el-input v-model="addForm.mobileNumber" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="操作密码" prop="opcode">
+        <el-form-item label="Kata Sandi" prop="opcode">
           <el-input type="password" v-model="addForm.opcode"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addFormSubmit" :loading="addFormLoading">确 认</el-button>
+        <el-button @click="addDialogVisible = false">Batal</el-button>
+        <el-button type="primary" @click="addFormSubmit" :loading="addFormLoading">Tambah</el-button>
+      </div>
+    </el-dialog>
+    <!--topup dialog-->
+    <el-dialog title="Tambah Saldo" :visible.sync="editDialogVisible" v-model="editDialogVisible" :close-on-click-modal="false" size="small">
+      <el-form :model="editForm" label-position="left" label-width="125px" :rules="inputRule" ref="editForm">
+        <el-form-item label="Nomor Ponsel" prop="mobileNumber">
+          <el-input v-model="editForm.mobileNumber" auto-complete="off" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="Nominal" prop="amount">
+          <el-input v-model="editForm.amount" auto-complete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">Batal</el-button>
+        <el-button type="primary" @click="editFormSubmit" :loading="editFormLoading">Tambah Saldo</el-button>
       </div>
     </el-dialog>
   </section>
@@ -58,21 +80,32 @@
           mobileNumber: '',
           opcode: ''
         },
+        editForm: {
+          mobileNumber: '',
+          amount: ''
+        },
         inputRule: {
           mobileNumber: [{
             required: true,
-            message: '请输入手机号',
+            message: 'Masukan Nomor Ponsel',
+            trigger: 'blur'
+          }],
+          amount: [{
+            required: true,
+            message: 'Masukan nominal yang akan ditambahkan',
             trigger: 'blur'
           }],
           opcode: [{
             required: true,
-            message: '请输入密码',
+            message: 'Masukan Kata Sandi',
             trigger: 'blur'
           }]
         },
         //Dialog
         addDialogVisible: false,
-        addFormLoading: false
+        editDialogVisible: false,
+        addFormLoading: false,
+        editFormLoading:false
       }
     },
     methods: {
@@ -82,6 +115,12 @@
       add(row) {
         this.addDialogVisible = true
         this.$refs.addForm && this.$refs.addForm.resetFields()
+      },
+      topup(row) {
+        this.editDialogVisible = true
+        this.editForm.userUuid = row.id
+        this.editForm.mobileNumber = row.mobileNumber
+        this.editForm.amount = row.amount
       },
       pageSizeChange(val) {
         this.pageSize = val
@@ -105,7 +144,33 @@
                 this.addDialogVisible = false
                 this.bindGrid()
                 this.$message({
-                  message: '操作成功',
+                  message: 'Berhasil menambah Pendana',
+                  type: 'success'
+                });
+              } else {
+                this.$message.error(response.data.message);
+              }
+            }, response => {})
+
+          } else {
+            return false
+          }
+        });
+      },
+      editFormSubmit() {
+        this.$refs.editForm.validate((valid) => {
+          if (valid) {
+            let _data = Object.assign({}, this.editForm)
+
+            this.editFormLoading = true
+
+            this.$http.post("api-user/user/addUserCurrentBlance", _data).then(response => {
+              this.editFormLoading = false;
+              if (0 == response.data.code) {
+                this.editDialogVisible = false
+                this.bindGrid()
+                this.$message({
+                  message: 'Berhasil menambah saldo',
                   type: 'success'
                 });
               } else {

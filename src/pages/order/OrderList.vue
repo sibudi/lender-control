@@ -1,86 +1,86 @@
 <template>
   <section>
-    <!--工具条-->
+    <!--Toolbar-->
     <el-form :inline="true" :model="searchForm" class="toolbar" label-position="right" label-width="100px">
       <el-row>
-        <el-form-item label="理财订单号">
+        <el-form-item label="Nomor Permohonan">
           <el-input v-model="searchForm.id" width="200"></el-input>
         </el-form-item>
-        <el-form-item label="理财人手机号">
+        <el-form-item label="Nomor Ponsel">
           <el-input v-model="searchForm.mobile" width="200"></el-input>
         </el-form-item>
-        <el-form-item label="购买时间区间">
+        <el-form-item label="Periode Pembelian">
           <div class="block">
             <el-date-picker
               v-model="searchForm.buyTimeMin"
               type="date"
               :editable="false"
-              placeholder="选择日期">
+              placeholder="Pilih tanggal">
             </el-date-picker> ~
             <el-date-picker
               v-model="searchForm.buyTimeMax"
               type="date"
               :editable="false"
-              placeholder="选择日期">
+              placeholder="Pilih tanggal">
             </el-date-picker>
           </div>
         </el-form-item>
-        <el-form-item label="产品类型" prop="productType">
-          <el-select v-model="searchForm.productType" placeholder="请选择" clearable>
+        <el-form-item label="Jenis Produk" prop="productType">
+          <el-select v-model="searchForm.productType" placeholder="Silakan pilih" clearable>
             <el-option v-for="item in productType" :label="item.name" :key="item.code" :value="item.code"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="年化收益率" prop="yearRateFin">
+        <el-form-item label="Suku Bunga" prop="yearRateFin">
           <el-input v-model="searchForm.yearRateFin" width="200"></el-input>
         </el-form-item>
-        <el-form-item label="交易类型" prop="tradeType">
-          <el-select v-model="searchForm.tradeType" placeholder="请选择" clearable>
+        <el-form-item label="Jenis Transaksi" prop="tradeType">
+          <el-select v-model="searchForm.tradeType" placeholder="Silakan pilih" clearable>
             <el-option v-for="item in tradeType" :label="item.name" :key="item.code" :value="item.code"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="到期时间区间">
+        <el-form-item label="Periode Terlambat">
           <div class="block">
             <el-date-picker
               v-model="searchForm.dueTimeMin"
               type="date"
               :editable="false"
-              placeholder="选择日期">
+              placeholder="Pilih tanggal">
             </el-date-picker> ~
             <el-date-picker
               v-model="searchForm.dueTimeMax"
               type="date"
               :editable="false"
-              placeholder="选择日期">
+              placeholder="Pilih tanggal">
             </el-date-picker>
           </div>
         </el-form-item>
         <el-form-item label=" ">
-          <el-button @click="search" type="primary" style="width: 170px">查询</el-button>
+          <el-button @click="search" type="primary" style="width: 170px">Cari</el-button>
         </el-form-item>
       </el-row>
     </el-form>
 
     <template>
       <el-table :data="gridData" highlight-current-row v-loading="gridLoading" class="grid">
-        <el-table-column label="订单编号" prop="id">
+        <el-table-column label="Nomor Permohonan" prop="id">
         </el-table-column>
-        <el-table-column label="手机号" prop="mobile">
+        <el-table-column label="Nomor Ponsel" prop="mobile">
         </el-table-column>
-        <el-table-column label="购买金额" prop="amountBuy">
+        <el-table-column label="Nominal Pembelian" prop="amountBuy">
         </el-table-column>
-        <el-table-column label="购买时间" prop="buyTime">
+        <el-table-column label="Waktu Pembelian" prop="buyTime">
           <template slot-scope="scope">
             <span>{{getUnixTime(scope.row.buyTime)}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="购买产品类型" prop="productType">
+        <el-table-column label="Jenis Produk" prop="productType">
           <template slot-scope="scope">
             <span>{{getproductType(scope.row.productType)}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="年化收益率" prop="yearRateFin">
+        <el-table-column label="Suku Bunga" prop="yearRateFin">
         </el-table-column>
-        <el-table-column label="到期日" prop="dueTime">
+        <el-table-column label="Tanggal Jatuh Tempo" prop="dueTime">
           <template slot-scope="scope">
             <span>{{getUnixTime(scope.row.dueTime)}}</span>
           </template>
@@ -88,7 +88,7 @@
       </el-table>
     </template>
 
-    <!--分页-->
+    <!--Pagination-->
     <el-pagination class="pager" @size-change="pageSizeChange" @current-change="pageIndexChange" :current-page="pageIndex" :page-size="pageSize"
                    layout="total, sizes, prev, pager, next, jumper" :total="dataTotal">
     </el-pagination>

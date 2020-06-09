@@ -1,87 +1,87 @@
 <template>
   <section>
-    <!--工具条-->
+    <!--Toolbar-->
     <el-form :inline="true" :model="searchForm" class="toolbar" label-position="right" label-width="100px">
       <el-row>
-        <el-form-item label="投资人姓名">
+        <el-form-item label="Nama Pendana">
           <el-input v-model="searchForm.name" width="200"></el-input>
         </el-form-item>
-<!--         <el-form-item label="状态" prop="status">
-          <el-select v-model="searchForm.status" placeholder="请选择" clearable>
+<!--         <el-form-item label="Status" prop="status">
+          <el-select v-model="searchForm.status" placeholder="Silakan pilih" clearable>
             <el-option v-for="item in statusList" :label="item.name" :key="item.code" :value="item.code"></el-option>
           </el-select>
         </el-form-item> -->
-        <el-form-item label="支付渠道" prop="channel">
-          <el-select v-model="searchForm.channel" placeholder="请选择" clearable>
+        <el-form-item label="Kanal Pembayaran" prop="channel">
+          <el-select v-model="searchForm.channel" placeholder="Silakan pilih" clearable>
             <el-option v-for="item in payList" :label="item.name" :key="item.code" :value="item.code"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="提现时间区间">
+        <el-form-item label="Periode Penarikan">
           <div class="block">
-            <el-date-picker v-model="searchForm.timeMin" type="date" :picker-options="pickerOptions1" :editable="false" placeholder="选择日期"></el-date-picker> ~
-            <el-date-picker v-model="searchForm.timeMax" type="date" :picker-options="pickerOptions2" :editable="false" placeholder="选择日期"></el-date-picker>
+            <el-date-picker v-model="searchForm.timeMin" type="date" :picker-options="pickerOptions1" :editable="false" placeholder="Pilih tanggal"></el-date-picker> ~
+            <el-date-picker v-model="searchForm.timeMax" type="date" :picker-options="pickerOptions2" :editable="false" placeholder="Pilih tanggal"></el-date-picker>
           </div>
         </el-form-item>
-        <el-form-item label="投资人手机号">
+        <el-form-item label="Nomor Ponsel Pemberi Pinjamam">
           <el-input v-model="searchForm.mobile" width="200"></el-input>
         </el-form-item>
         <el-form-item label=" ">
-          <el-button @click="search" type="primary" style="width: 170px">查询</el-button>
+          <el-button @click="search" type="primary" style="width: 170px">Cari</el-button>
         </el-form-item>
       </el-row>
     </el-form>
 
     <template>
       <el-table :data="gridData" highlight-current-row v-loading="gridLoading" class="grid">
-        <el-table-column label="账单号" prop="tradeNo">
+        <el-table-column label="Nomor Akun" prop="tradeNo">
         </el-table-column>
-        <el-table-column label="提现时间" prop="createTime">
+        <el-table-column label="Waktu Penarikan" prop="createTime">
 <!--           <template slot-scope="scope">
             <span>{{getUnixTime(scope.row.createTime)}}</span>
           </template> -->
         </el-table-column>
-        <el-table-column label="金额" prop="amount">
+        <el-table-column label="Nominal" prop="amount">
         </el-table-column>
-        <el-table-column label="支付渠道" prop="paychannel">
+        <el-table-column label="Kanal Pembayaran" prop="paychannel">
         </el-table-column>
-        <el-table-column label="投资人姓名" prop="fromUserId">
+        <el-table-column label="Nama Pendana" prop="fromUserId">
         </el-table-column>
-        <el-table-column label="情况" prop="dealStatus">
+        <el-table-column label="Status" prop="dealStatus">
         </el-table-column>
-        <el-table-column label="备注" prop="remark"></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="Catatan" prop="remark"></el-table-column>
+        <el-table-column label="Opsi">
           <template slot-scope="scope">
-            <el-button size="small" type="text" @click="edit(scope.row)">编辑</el-button>
+            <el-button size="small" type="text" @click="edit(scope.row)">Ubah</el-button>
             <el-popover trigger="hover" placement="top">
               <p class="hideTooMuch">{{scope.row.toUserId}}</p>
-              <el-button size="small" type="text" @click="" slot="reference">查看手机号</el-button>
+              <el-button size="small" type="text" @click="" slot="reference">Lihat Nomor</el-button>
             </el-popover>
           </template>
         </el-table-column>
       </el-table>
     </template>
 
-    <!--分页-->
+    <!--Pagination-->
     <el-pagination class="pager" @size-change="pageSizeChange" @current-change="pageIndexChange" :current-page="pageIndex" :page-size="pageSize"
                    layout="total, sizes, prev, pager, next, jumper" :total="dataTotal">
     </el-pagination>
 
 
-        <!-- 添加备注弹框 -->
-    <el-dialog title="订单情况" :visible.sync="editFormDigVisible" v-model="editFormDigVisible" :close-on-click-modal="false">
+        <!-- Dialog -->
+    <el-dialog title="Status Permohonan" :visible.sync="editFormDigVisible" v-model="editFormDigVisible" :close-on-click-modal="false">
       <el-form :model="addRemarkForm" ref="addRemarkForm" label-width="70px">
-        <el-form-item label="订单情况" prop="questionType">
-          <el-select v-model="addRemarkForm.dealStatus" placeholder="请选择" clearable>
+        <el-form-item label="Status Permohonan" prop="questionType">
+          <el-select v-model="addRemarkForm.dealStatus" placeholder="Silakan pilih" clearable>
             <el-option v-for="item in issueTypeList" :label="item.name" :key="item.code" :value="item.name"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="备注" prop="remark">
+        <el-form-item label="Catatan" prop="remark">
           <el-input type="textarea" v-model="addRemarkForm.remark" :maxlength="200" :rows="4"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="" @click="editFormDigVisible = false">取 消</el-button>
-        <el-button type="primary" @click.native.prevent="editFormSubmit" :loading="confirmLoading">提 交</el-button>
+        <el-button type="" @click="editFormDigVisible = false">Batal</el-button>
+        <el-button type="primary" @click.native.prevent="editFormSubmit" :loading="confirmLoading">Simpan</el-button>
       </div>
     </el-dialog>
   </section>
@@ -124,13 +124,13 @@
         },
         statusList:[{
           code: '1',
-          name:'提现处理中'
+          name:'Dalam Proses'
         },{
           code: '2',
-          name:'提现成功'
+          name:'Sukses'
         },{
           code: '3',
-          name:'提现失败'
+          name:'Gagal'
         }],
         payList:[{
           code: 'BCA',
@@ -144,13 +144,13 @@
         }],
         issueTypeList:[{
           code: '1',
-          name: '已联系',
+          name: 'Dihubungi',
         },{
           code: '2',
-          name: '更卡，钱已回',
+          name: 'Kartu Berubah，Dana dikembalikan',
         },{
           code: '3',
-          name: '未联系到',
+          name: 'Tidak Dihubungi',
         }],
         gridLoading: false,
         gridData: [],
@@ -215,11 +215,11 @@
       },
       editFormSubmit() {
         if(!this.addRemarkForm.remark){
-          this.$message.error("请填写备注");
+          this.$message.error("Silakan isi catatan");
           return false;
         }
         if(!this.addRemarkForm.dealStatus){
-          this.$message.error("请选择订单情况");
+          this.$message.error("Silakan pilih status pesanan");
           return false;
         }
         let _data = Object.assign({},this.addRemarkForm);

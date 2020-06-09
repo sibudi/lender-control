@@ -14,15 +14,14 @@ import 'element-ui/lib/theme-chalk/index.css';
 import 'nprogress/nprogress.css'
 
 import routes from './common/router';
-import Config from './common/config';
+// import Config from './common/config';
 import DataUtil from './common/dataUtil';
-
 Vue.use(VueAxios, axios);
 Vue.use(VueRouter);
 Vue.use(ElementUI, { locale });
 Vue.config.productionTip = false;
 
-//路由配置
+//Routing Configuration
 const router = new VueRouter({
   routes
 });
@@ -33,7 +32,7 @@ router.beforeEach((to, from, next) => {
   NProgress.start();
   let currentUrl = window.location.hash.split('#')[1].split('?')[0];
   let isHavePermission = DataUtil.getPermissionSet().has(currentUrl);
-  if (!isHavePermission && !isHavePermissionInn && to.path !== '/unauthorized') {
+  if (!isHavePermission  && to.path !== '/unauthorized') {
     //Need to ignore the path to avoid infinite loop
     //ahalim1: Disable unauthorized for now
     next();
@@ -43,13 +42,13 @@ router.beforeEach((to, from, next) => {
   else {
     next();
   }
-  // let perMiss = DataUtil.getPermissionSet();  /*从localStorage中获取权限列表*/
-  // if(perMiss.has(to.path)){       /*判断用户是否有该页面权限*/
+  // let perMiss = DataUtil.getPermissionSet();  /*Get permissions list from local storage*/
+  // if(perMiss.has(to.path)){       /*Determine if user has access to the page*/
   //   next()
   // }else{
-  //   next({path:'/home'})        /*无权限跳转到 /home*/
+  //   next({path:'/home'})        /*Redirect to /home if doesn't have permission*/
   // }
-  next()
+  // next()
 });
 
 router.afterEach(transition => {
@@ -57,18 +56,17 @@ router.afterEach(transition => {
 });
 
 
-//ajax公共配置
-Vue.axios.defaults.baseURL = Config.host;
+//ajax Public configuration
+Vue.axios.defaults.baseURL = process.env.API_URL;
 Vue.axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 Vue.axios.interceptors.request.use(config =>{
-  config.data.sessionId = DataUtil.sid() || '222';
-  //console.log(config);
+
+  config.data.sessionId =  DataUtil.sid()||'222' ;
   return config;
 },error =>{});
 
 Vue.axios.interceptors.response.use(response =>{
-  //console.log(response);
   if(response && response.data && response.data.code == -5){
     router.push('/login')
   }
