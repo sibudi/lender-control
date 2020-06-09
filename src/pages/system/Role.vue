@@ -1,18 +1,18 @@
 <template>
   <section>
-    <!--工具条-->
+    <!--Toolbar-->
     <el-form :inline="true" class="toolbar">
       <el-form-item>
-        <el-button @click="add" type="success">添加角色</el-button>
+        <el-button @click="add" type="success">Tambah Peran</el-button>
       </el-form-item>
     </el-form>
-    <!--列表-->
+    <!--List-->
     <el-table :data="gridData" highlight-current-row v-loading="gridLoading" class="grid">
       <el-table-column type="index" width="80">
       </el-table-column>
-      <el-table-column prop="roleName" label="角色名称" width="150">
+      <el-table-column prop="roleName" label="Nama" width="250px">
       </el-table-column>
-      <el-table-column label="备注">
+      <el-table-column label="Catatan">
         <template slot-scope="scope">
           <el-tooltip effect="dark" placement="bottom-start">
             <div slot="content">
@@ -22,27 +22,27 @@
           </el-tooltip>
         </template>
       </el-table-column>
-      <el-table-column label="状态" width="100">
+      <el-table-column label="Status" width="100">
         <template slot-scope="scope">
-          <el-tag :type="scope.row.status==1 ? 'danger' : 'primary'" close-transition>{{scope.row.status==1?'禁用':'启用'}}</el-tag>
+          <el-tag :type="scope.row.status==1 ? 'danger' : 'success'" close-transition>{{scope.row.status==1?'Non-aktif':'Aktif'}}</el-tag>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="100">
+      <el-table-column label="Opsi" width="100">
         <template slot-scope="scope">
-          <el-button size="small" @click="edit(scope.row)">编辑</el-button>
+          <el-button size="small" @click="edit(scope.row)">Ubah</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <!--添加-->
-    <el-dialog title="添加角色" :visible.sync="addDialogVisible" v-model="addDialogVisible" :close-on-click-modal="false" size="small">
+    <!--Add new item-->
+    <el-dialog title="Tambah Peran" :visible.sync="addDialogVisible" v-model="addDialogVisible" :close-on-click-modal="false" size="small">
       <el-form :model="addForm" label-position="left" label-width="100px" :rules="inputRule" ref="addForm">
-        <el-form-item label="名称" prop="roleName">
+        <el-form-item label="Nama" prop="roleName">
           <el-input v-model="addForm.roleName" auto-complete="off" :maxlength="20"></el-input>
         </el-form-item>
-        <el-form-item label="备注" prop="remark">
+        <el-form-item label="Catatan" prop="remark">
           <el-input type="textarea" :autosize="{minRows: 2,maxRows: 4}" v-model="addForm.remark" :maxlength="200"></el-input>
         </el-form-item>
-        <el-form-item label="权限" prop="permissionObj">
+        <el-form-item label="Akses" prop="permissionObj">
           <template v-for="(item,index) in addForm.permissionObj">
             <el-checkbox :label="item.id" :indeterminate="addForm.permissionObj[index].indeterminate" v-model="addForm.permissionObj[index].isCheck"
               @change="checkAllChange">{{item.permissionName}}</el-checkbox>
@@ -51,25 +51,25 @@
             </el-checkbox-group>
           </template>
         </el-form-item>
-        <el-form-item label="状态" prop="status">
-          <el-switch v-model="addForm.status" on-text="启用" off-text="禁用"></el-switch>
+        <el-form-item label="Status" prop="status">
+          <el-switch v-model="addForm.status" on-text="Aktif" off-text="Non-aktif"></el-switch>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addFormSubmit" :loading="addFormLoading">提 交</el-button>
+        <el-button @click="addDialogVisible = false">Batal</el-button>
+        <el-button type="primary" @click="addFormSubmit" :loading="addFormLoading">Tambah</el-button>
       </div>
     </el-dialog>
-    <!--修改-->
-    <el-dialog title="修改角色" :visible.sync="editDialogVisible" v-model="editDialogVisible" :close-on-click-modal="false" size="small">
+    <!--Edit dialog-->
+    <el-dialog title="Ubah Peran" :visible.sync="editDialogVisible" v-model="editDialogVisible" :close-on-click-modal="false" size="small">
       <el-form :model="editForm" label-position="left" label-width="100px" :rules="inputRule" v-loading="editFormInit" ref="editForm">
-        <el-form-item label="名称" prop="roleName">
+        <el-form-item label="Nama" prop="roleName">
           <el-input v-model="editForm.roleName" auto-complete="off" :maxlength="20"></el-input>
         </el-form-item>
-        <el-form-item label="备注" prop="remark">
+        <el-form-item label="Catatan" prop="remark">
           <el-input type="textarea" :autosize="{minRows: 2,maxRows: 4}" v-model="editForm.remark" :maxlength="200"></el-input>
         </el-form-item>
-        <el-form-item label="权限" prop="permissionObj">
+        <el-form-item label="Akses" prop="permissionObj">
           <template v-for="(item,index) in editForm.permissionObj">
             <el-checkbox :label="item.id" :indeterminate="editForm.permissionObj[index].indeterminate" v-model="editForm.permissionObj[index].isCheck"
               @change="checkAllChange2">{{item.permissionName}}</el-checkbox>
@@ -78,13 +78,13 @@
             </el-checkbox-group>
           </template>
         </el-form-item>
-        <el-form-item label="状态" prop="status">
-          <el-switch v-model="editForm.status" on-text="启用" off-text="禁用"></el-switch>
+        <el-form-item label="Status" prop="status">
+          <el-switch v-model="editForm.status" on-text="Aktif" off-text="Non-aktif"></el-switch>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="editDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editFormSubmit" :loading="editFormLoading">提 交</el-button>
+        <el-button @click="editDialogVisible = false">Batal</el-button>
+        <el-button type="primary" @click="editFormSubmit" :loading="editFormLoading">Ubah</el-button>
       </div>
     </el-dialog>
   </section>
@@ -95,7 +95,7 @@
       let checkPermission = (rule, value, callback) => {
         let _arr = this.getPermissionIds(value)
         if (_arr.length == 0) {
-          callback(new Error('至少选择一项'))
+          callback(new Error('Silakan pilih akses'))
         }
         callback()
       }
@@ -122,7 +122,7 @@
         inputRule: {
           roleName: [{
             required: true,
-            message: '请输入角色名称',
+            message: 'Silakan masukkan nama peran',
             trigger: 'blur'
           }],
           permissionObj: [{
@@ -131,7 +131,7 @@
           }],
           remark:[{
             required: true,
-            message: '请输入备注',
+            message: 'Silakan isi catatan',
             trigger: 'blur'
           }]
         },
@@ -252,7 +252,7 @@
                 this.addDialogVisible = false
                 this.bindGrid()
                 this.$message({
-                  message: '添加成功',
+                  message: 'Berhasil menambahkan peran',
                   type: 'success'
                 });
               } else {
@@ -284,7 +284,7 @@
                 this.editDialogVisible = false
                 this.bindGrid()
                 this.$message({
-                  message: '修改成功',
+                  message: 'Berhasil mengubah peran',
                   type: 'success'
                 });
               } else {

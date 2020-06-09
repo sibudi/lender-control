@@ -1,152 +1,160 @@
 <template>
   <section>
-    <!--工具条-->
-    <el-form :inline="true" :model="searchForm" class="toolbar">
-<!--       <el-form-item label="用户名">
+    <!--Toolbar-->
+    <el-form :inline="true" :model="searchForm" class="toolbar" label-width="auto">
+<!--       <el-form-item label="Nama Pengguna">
         <el-input v-model="searchForm.usernameLike"></el-input>
       </el-form-item>
-      <el-form-item label="姓名">
+      <el-form-item label="Nama">
         <el-input v-model="searchForm.realnameLike"></el-input>
       </el-form-item>
-      <el-form-item label="手机">
+      <el-form-item label="Nomor Ponsel">
         <el-input v-model="searchForm.mobileLike"></el-input>
       </el-form-item> -->
-      <el-form-item label="角色">
-        <el-select v-model="searchForm.roleId" clearable>
-          <el-option v-for="item in roleList" :key="item.id" :label="item.roleName" :value="item.id">
-          </el-option>
-        </el-select>
-      </el-form-item>
+      <el-row>
+        <el-form-item label="Nomor Ponsel">
+          <el-input v-model="searchForm.mobile" style="width:217px"></el-input>
+        </el-form-item>
+        <el-form-item label="Nama Pengguna">
+          <el-input v-model="searchForm.userName" style="width:217px"></el-input>
+        </el-form-item>
+      </el-row>
 
-      <el-form-item label="用户名">
-        <el-input v-model="searchForm.userName"></el-input>
-      </el-form-item>
+      <el-row>
+        <el-form-item label="Peran">
+          <el-select v-model="searchForm.roleId" clearable>
+            <el-option v-for="item in roleList" :key="item.id" :label="item.roleName" :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="Status">
+          <el-select v-model="searchForm.status" clearable>
+            <el-option label="Aktif" :value="0"></el-option>
+            <el-option label="Non-aktif " :value="1"></el-option>
+          </el-select>
+        </el-form-item>
+      </el-row>
 
-      <el-form-item label="手机号">
-        <el-input v-model="searchForm.mobile"></el-input>
-      </el-form-item>
+      <el-row>
+        <el-form-item label="Pihak Ketiga">
+          <el-select v-model="searchForm.isThird" clearable>
+            <el-option label="Ya" value="0"></el-option>
+            <el-option label="Tidak" value="1"></el-option>
+          </el-select>
+        </el-form-item>
 
-      <el-form-item label="状态">
-        <el-select v-model="searchForm.status" clearable>
-          <el-option label="有效" :value="0"></el-option>
-          <el-option label="无效" :value="1"></el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item label="三方人员">
-        <el-select v-model="searchForm.isThird" clearable>
-          <el-option label="是" value="0"></el-option>
-          <el-option label="否" value="1"></el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item>
-        <el-button @click="search" type="info">查询</el-button>
-      </el-form-item>
-      <el-form-item>
-        <el-button @click="add" type="success">新增</el-button>
-      </el-form-item>
+        <el-form-item>
+          <el-button @click="search" type="primary">Cari</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="add" type="success">Tambah</el-button>
+        </el-form-item>
+      </el-row>
     </el-form>
-    <!--列表-->
+    <!--List-->
     <template>
       <el-table :data="gridData" highlight-current-row v-loading="gridLoading" class="grid">
-        <el-table-column prop="id" width="90" label="ID">
+        <!-- <el-table-column prop="id" width="90" label="ID">
+        </el-table-column> -->
+        <el-table-column prop="username" label="Nama Pengguna" width="150">
         </el-table-column>
-        <el-table-column prop="username" label="用户名" width="120">
+        <!-- <el-table-column prop="realname" label="Nama" width="100">
+        </el-table-column> -->
+        <el-table-column prop="mobile" label="Nomor Ponsel" width="150">
         </el-table-column>
-        <el-table-column prop="realname" label="姓名" width="100">
-        </el-table-column>
-        <el-table-column prop="mobile" label="手机" width="150">
-        </el-table-column>
-        <el-table-column label="角色">
+        <el-table-column label="Peran">
           <template slot-scope="scope">
             <el-tag v-for="item in (scope.row.roles.split(','))" v-if="item" :key="item" type="primary" style="margin-right:2px;">{{ item.split('|')[1]}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="createTime" label="创建时间" width="100">
+        <el-table-column prop="createTime" label="Waktu Dibuat" width="140">
           <template slot-scope="scope">
             <span>{{getUnixTime(scope.row.createTime)}}</span>
           </template>
         </el-table-column>
-        <el-table-column label="状态" width="80">
+        <el-table-column label="Status" width="100">
           <template slot-scope="scope">
-            <el-tag :type="scope.row.status==0? 'success' : 'danger'" close-transition>{{scope.row.status==0?'有效':'无效'}}</el-tag>
+            <el-tag :type="scope.row.status==0? 'success' : 'danger'" close-transition>{{scope.row.status==0?'Aktif':'Non-aktif '}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="是否为三方人员" width="80">
+        <el-table-column label="Pihak Ketiga" width="110">
           <template slot-scope="scope">
-            <el-tag :type="scope.row.third==1? 'primary' : 'danger'" close-transition>{{scope.row.third==1?'否':'是'}}</el-tag>
+            <el-tag :type="scope.row.third==1? 'success' : 'danger'" close-transition>{{scope.row.third==1?'Ya':'Tidak'}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="180">
+        <el-table-column label="Opsi" width="180">
           <template slot-scope="scope">
-            <el-button size="small" @click="edit(scope.row)">编辑</el-button>
-            <el-button type="danger" size="small" @click="reset(scope.row)">重置密码</el-button>
+            <div>
+              <el-button size="small" @click="edit(scope.row)">Ubah</el-button>
+            </div>
+            <div>
+              <el-button type="danger" size="small" @click="reset(scope.row)">Setel ulang kata sandi</el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>
     </template>
-    <!--分页-->
+    <!--Pagination-->
     <el-pagination class="pager" @size-change="pageSizeChange" @current-change="pageIndexChange" :current-page="pageIndex" :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper" :total="dataTotal">
     </el-pagination>
-    <!--添加-->
-    <el-dialog title="添加用户" :visible.sync="addDialogVisible" v-model="addDialogVisible" :close-on-click-modal="false" size="small">
-      <el-form :model="addForm" label-position="left" label-width="100px" :rules="inputRule" ref="addForm">
-        <el-form-item label="用户名" prop="username">
+    <!--Add new item-->
+    <el-dialog title="Tambah Pengguna" :visible.sync="addDialogVisible" v-model="addDialogVisible" :close-on-click-modal="false" size="small">
+      <el-form :model="addForm" label-position="left" label-width="150px" :rules="inputRule" ref="addForm">
+        <el-form-item label="Nama Pengguna" prop="username">
           <el-input v-model="addForm.username" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="姓名" prop="realname">
+        <el-form-item label="Nama Lengkap" prop="realname">
           <el-input v-model="addForm.realname" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="手机号" prop="mobile">
+        <el-form-item label="Nomor Ponsel" prop="mobile">
           <el-input v-model="addForm.mobile" auto-complete="off" :maxlength="11"></el-input>
         </el-form-item>
-        <el-form-item label="备注" prop="remark">
+        <el-form-item label="Catatan" prop="remark">
           <el-input type="textarea" v-model="addForm.remark" auto-complete="off" :maxlength="20"></el-input>
         </el-form-item>
 
-        <el-form-item label="角色" prop="roleIds">
+        <el-form-item label="Peran" prop="roleIds">
           <el-checkbox-group v-model="addForm.roleIds">
             <el-checkbox v-for="item in roleList" :key="item.id" :label="item.id">{{item.roleName}}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-        <el-form-item label="状态" prop="status">
-          <el-switch v-model="addForm.status" on-text="有效" off-text="无效"></el-switch>
+        <el-form-item label="Status" prop="status">
+          <el-switch v-model="addForm.status" on-text="Aktif" off-text="Non-aktif "></el-switch>
         </el-form-item>
-        <el-form-item label="是否为第三方人员" prop="third">
-          <el-switch v-model="addForm.third" on-text="是" off-text="否"></el-switch>
+        <el-form-item label="Pihak Ketiga" prop="third">
+          <el-switch v-model="addForm.third" on-text="Ya" off-text="Tidak"></el-switch>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="addFormSubmit" :loading="addFormLoading">提 交</el-button>
+        <el-button @click="addDialogVisible = false">Batal</el-button>
+        <el-button type="primary" @click="addFormSubmit" :loading="addFormLoading">Tambah</el-button>
       </div>
     </el-dialog>
-    <!--修改-->
-    <el-dialog title="修改用户" :visible.sync="editDialogVisible" v-model="editDialogVisible" :close-on-click-modal="false" size="small">
-      <el-form :model="editForm" label-position="left" label-width="100px" :rules="inputRule" ref="editForm">
-        <el-form-item label="用户名" prop="username">
+    <!--Edit dialog-->
+    <el-dialog title="Ubah Pengguna" :visible.sync="editDialogVisible" v-model="editDialogVisible" :close-on-click-modal="false" size="small">
+      <el-form :model="editForm" label-position="left" label-width="150px" :rules="inputRule" ref="editForm">
+        <el-form-item label="Nama Pengguna" prop="username">
           <el-input v-model="editForm.username" auto-complete="off" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="姓名" prop="realname">
+        <el-form-item label="Nama" prop="realname">
           <el-input v-model="editForm.realname" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="手机号" prop="mobile">
+        <el-form-item label="Nomor Ponsel" prop="mobile">
           <el-input v-model="editForm.mobile" auto-complete="off" :maxlength="11"></el-input>
         </el-form-item>
-        <el-form-item label="角色" prop="roleIds">
+        <el-form-item label="Peran" prop="roleIds">
           <el-checkbox-group v-model="editForm.roleIds">
             <el-checkbox v-for="item in roleList" :key="item.id" :label="item.id">{{item.roleName}}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
-        <el-form-item label="状态" prop="status">
-          <el-switch v-model="editForm.status" on-text="有效" off-text="无效"></el-switch>
+        <el-form-item label="Status" prop="status">
+          <el-switch v-model="editForm.status" on-text="Aktif" off-text="Non-aktif "></el-switch>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="editDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="editFormSubmit" :loading="editFormLoading">提 交</el-button>
+        <el-button @click="editDialogVisible = false">Batal</el-button>
+        <el-button type="primary" @click="editFormSubmit" :loading="editFormLoading">Ubah</el-button>
       </div>
     </el-dialog>
   </section>
@@ -157,10 +165,10 @@
     data() {
       var validateMobile = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('请输入手机号码'));
+          callback(new Error('Silakan masukan nomor ponsel'));
         } else {
           if (!DataUtil.isMobile(value)) {
-            callback(new Error('手机号码格式不正确'));
+            callback(new Error('Format nomor tidak benar'));
           }
           callback();
         }
@@ -168,7 +176,6 @@
 
       return {
         roleList: [],
-        //搜索
         searchForm: {
           userName: '',
           mobile: '',
@@ -203,28 +210,28 @@
         inputRule: {
           username: [{
             required: true,
-            message: '请输入用户名',
+            message: 'Silakan masukkan nama pengguna',
             trigger: 'blur'
           }],
           realname: [{
             required: true,
-            message: '请输入姓名',
+            message: 'Masukan nama',
             trigger: 'blur'
           }],
           mobile: [{
             required: true,
-            message: '请输入姓名',
+            message: 'Masukan nomor ponsel',
             trigger: 'blur'
           }],
           roleIds: [{
             type: 'array',
             required: true,
-            message: '请至少选择一个角色',
+            message: 'Silakan pilih 1 peran',
             trigger: 'change'
           }],
           remark:[{
             required: true,
-            message: '请输入备注',
+            message: 'Silakan isi catatan',
             trigger: 'blur'
           }]
         },
@@ -249,11 +256,12 @@
         this.editForm.id = row.id
         this.editForm.username = row.username
         this.editForm.realname = row.realname
+        this.editForm.mobile = row.mobile
         this.editForm.roleIds = this.getRoleIds(row.roles.split(','))
         this.editForm.status = row.status == 1 ? false : true
       },
       reset(row) {
-        this.$confirm('确认要重置密码吗?', '提示', {
+        this.$confirm('Anda yakin akan menyetel ulang kata sandi?', 'Konfirmasi', {
           type: 'warning'
         }).then(() => {
           let _data = {
@@ -264,7 +272,7 @@
             let {data} = response;
             if (0 == data.code) {
               this.$message({
-                message: '密码重置成功',
+                message: 'Kata sandi berhasil di setel ulang',
                 type: 'success'
               });
             } else {
@@ -280,7 +288,7 @@
       getRoleIds(list) {
         var _arr = []
         for (let i = 0; i < list.length; i++) {
-          _arr.push(Number(list[i].split('|')[0]))
+          _arr.push(list[i].split('|')[0])
         }
         return _arr
       },
@@ -302,7 +310,7 @@
             _data.roleIds = _data.roleIds.join(',')
             if(_data.roleIds == 0){
               this.$message({
-                message: '至少选择一个角色',
+                message: 'Silakan pilih 1 peran',
                 type: 'error'
               });
               return false;
@@ -317,7 +325,7 @@
                 this.addDialogVisible = false
                 this.bindGrid()
                 this.$message({
-                  message: '添加成功',
+                  message: 'Berhasil menambahkan pengguna',
                   type: 'success'
                 });
               } else {
@@ -338,7 +346,7 @@
             _data.roleIds = _data.roleIds.join(',')
             if(_data.roleIds == 0){
               this.$message({
-                message: '至少选择一个角色',
+                message: 'Silakan pilih 1 peran',
                 type: 'error'
               });
                 return false;
@@ -352,7 +360,7 @@
                 this.editDialogVisible = false
                 this.bindGrid()
                 this.$message({
-                  message: '修改成功',
+                  message: 'Berhasil mengubah pengguna',
                   type: 'success'
                 });
               } else {

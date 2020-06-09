@@ -3,20 +3,20 @@
  */
 const DataUtil = {
     /**
-     * 手机验证*/
+     * Check mobile number format*/
     isMobile(param) {
       return /^[1][34578][0-9]{9}$/i.test(param);
     },
   
     /**
-     * 是否为数字*/
+     * Check if number*/
     isNumber(param){
       return isNaN(param);
     },
   
     /**
-     * 四舍五入保留num位小数
-     * val为需四舍五入数字, num为需要四舍五入的位数*/
+     * Rounding off num decimal places
+      * val is the number to round off, num is the number of digits to be rounded*/
     keepDecimal(val,num = 0){
       let result = Number(val).toFixed(num);
       if(result == 'NaN'){
@@ -26,7 +26,7 @@ const DataUtil = {
     },
   
     /**
-     * 格式化年月日 format为格式 eg:yyyy-MM-dd*/
+     * Format year, month and day format is format eg:yyyy-MM-dd*/
     formatTime(dateTime,format = "yyyy-MM-dd"){
       if(!dateTime) return dateTime;
       let args = {
@@ -49,13 +49,13 @@ const DataUtil = {
     },
   
     /**
-     * 将unix时间戳转化为年月日*/
+     * Convert unix timestamp to year, month, and day*/
     formatUnixTime(time){
       if(time == null){return '';}
       let timeStamp = new Date(time);
-      return timeStamp.getFullYear() + "年"
-        + (timeStamp.getMonth() + 1) + "月" + timeStamp.getDate() + "日"
-        + timeStamp.getHours() + "时" + timeStamp.getMinutes() + "分";
+      return timeStamp.getFullYear() + "-"
+        + ('0'+(timeStamp.getMonth() + 1)).slice(-2) + "-" + ('0'+timeStamp.getDate()).slice(-2) + " "
+        + ('0'+timeStamp.getHours()).slice(-2) + ":" + ('0'+timeStamp.getMinutes()).slice(-2)+ ":" + ('0'+timeStamp.getSeconds()).slice(-2) + "";
     },
   
     formatUnixDateTime(time){
@@ -66,19 +66,19 @@ const DataUtil = {
     },
   
     /**
-     * json转string*/
+     * Convert json to string*/
     json2Str(param){
       return JSON.stringify(param);
     },
   
     /**
-     * string转json*/
+     * Convert string to json*/
     str2Json(param){
       return JSON.parse(param);
     },
   
     /**
-     * localStorage操作*/
+     * localStorage*/
     setStorage(key,value){
       return localStorage.setItem(key,value);
     },
@@ -90,8 +90,9 @@ const DataUtil = {
     },
   
     /**
-     * 登陆用户信息
-     * param为''则为清除,  param == undefined为获取值, param传入对象则为写入值*/
+     * Login user information
+      * param is '' is cleared, param == undefined is the value obtained, param is passed to the object is the write value * /
+    */
     userUtil(name,param){
       if(param === ''){
         return this.clearStorage(name);;
@@ -104,13 +105,13 @@ const DataUtil = {
     },
   
     /**
-     * 用户的sessionId*/
+     * Session Id*/
     sid(param){
       return this.userUtil('adminSid',param);
     },
   
     /**
-     * 用户的userId*/
+     * User Id*/
     id(param){
       return this.userUtil('adminId',param);
     },
@@ -122,26 +123,26 @@ const DataUtil = {
     },
   
     /**
-     * 用户的登陆账户*/
+     * User login account*/
     account(param){
       return this.userUtil('adminAccout',param);
     },
   
     /**
-     * 用户的姓名*/
+     * Username*/
     userName(param){
       return this.userUtil('adminName',param);
     },
   
     /**
-     * 保存用户url权限*/
+     * Save user permissions*/
     savePermission(param){
       let permission = this.json2Str(param);
       return this.userUtil('adminPermission',permission);
     },
   
     /**
-     * 获取用户url权限*/
+     * Get user permissions*/
     getPermission(){
       return this.str2Json(this.userUtil('adminPermission'));
     },
@@ -160,13 +161,15 @@ const DataUtil = {
       };
       getPermission(Obj);
   
-      //这些页面不判断是否具有权限
+      //Pages without permissions
       Arr.add('/home');
       Arr.add('/404');
+      Arr.add('/Unauthorized');
       Arr.add('/login');
       Arr.add('/UserDetail');
       Arr.add('/OrderDetail');
       Arr.add('/OrderInfoControl');
+
       return Arr;
     }
   };

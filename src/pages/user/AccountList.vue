@@ -3,7 +3,7 @@
     <!--Toolbar-->
     <el-form :inline="true" class="toolbar">
       <el-form-item>
-        <el-button @click="add" type="primary">Tambah Investor Institusional</el-button>
+        <el-button @click="add" type="primary">Tambah Pendana Lembaga</el-button>
       </el-form-item>
     </el-form>
     <!--List-->
@@ -15,7 +15,7 @@
         </el-table-column>
         <el-table-column prop="bankCarkNo" label="Nomor Rekening">
         </el-table-column>
-        <el-table-column prop="currentBalance" label="Saldo Akun">
+        <el-table-column prop="currentBalance" label="Saldo">
         </el-table-column>
         <el-table-column prop="lockedBalance" label="Saldo Terkunci">
         </el-table-column>
@@ -27,12 +27,12 @@
       layout="total, sizes, prev, pager, next, jumper" :total="dataTotal">
     </el-pagination> -->
     <!--Add-->
-    <el-dialog title="Tambah Investor Institusi" :visible.sync="addDialogVisible" v-model="addDialogVisible" :close-on-click-modal="false" size="small">
+    <el-dialog title="Tambah Pendana Lembaga" :visible.sync="addDialogVisible" v-model="addDialogVisible" :close-on-click-modal="false" size="small">
       <el-form :model="addForm" label-position="left" label-width="120px" :rules="inputRule" ref="addForm">
         <el-form-item label="Nomor Ponsel" prop="mobileNumber">
           <el-input v-model="addForm.mobileNumber" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="Nama Institusi" prop="companyName">
+        <el-form-item label="Nama Lembaga" prop="companyName">
           <el-input v-model="addForm.companyName" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="Kode Bank" prop="bankCode">
@@ -43,7 +43,7 @@
         <el-form-item label="Nomor Rekening" prop="bankNumberNo">
           <el-input v-model="addForm.bankNumberNo" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="Mendukung Pemotongan ">
+        <el-form-item label="Izinkan Kunci Saldo">
           <el-switch v-model="addForm.withholding " active-color="#13ce66"></el-switch>
         </el-form-item>
         <el-form-item label="Kata Sandi" prop="opcode">
@@ -56,22 +56,22 @@
       </div>
     </el-dialog>
 
-        <!--添加-->
-<!--     <el-dialog title="充值" :visible.sync="addDialogVisible1" v-model="addDialogVisible1" :close-on-click-modal="false" size="small">
+        <!--Add new item-->
+<!--     <el-dialog title="Isi Ulang" :visible.sync="addDialogVisible1" v-model="addDialogVisible1" :close-on-click-modal="false" size="small">
       <el-form :model="addForm" label-position="left" label-width="120px" :rules="inputRule" ref="addForm">
-        <el-form-item label="充值账号名称" prop="mobile">
+        <el-form-item label="Nama Akun" prop="mobile">
           <el-input v-model="addForm.mobile" auto-complete="off" :maxlength="11"></el-input>
         </el-form-item>
-        <el-form-item label="充值金额" prop="mobile">
+        <el-form-item label="Nomor Ponsel" prop="mobile">
           <el-input v-model="addForm.mobile" auto-complete="off" :maxlength="11"></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="realname">
+        <el-form-item label="Kata Sandi" prop="realname">
           <el-input v-model="addForm.realname" auto-complete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="addDialogVisible1 = false">取 消</el-button>
-        <el-button type="primary" @click="addFormSubmit" :loading="addFormLoading">确 认</el-button>
+        <el-button @click="addDialogVisible1 = false">Batal</el-button>
+        <el-button type="primary" @click="addFormSubmit" :loading="addFormLoading">Isi Ulang</el-button>
       </div>
     </el-dialog> -->
   </section>
@@ -118,7 +118,7 @@
           }],
           companyName: [{
             required: true,
-            message: 'Masukan Nama Institusi',
+            message: 'Masukan Nama Lembaga',
             trigger: 'blur'
           }],
          bankCode: [{
@@ -173,13 +173,13 @@
             }
             this.addFormLoading = true
 
-            this.$http.post("api-user/users/addCompanyInvestor", _data).then(response => {
+            this.$http.post("api-user/users/addCompanyPendana", _data).then(response => {
               this.addFormLoading = false;
               if (0 == response.data.code) {
                 this.addDialogVisible = false
                 this.bindGrid()
                 this.$message({
-                  message: 'Sukses',
+                  message: 'Berhasil menambahkan perusahaan Pendana',
                   type: 'success'
                 });
               } else {

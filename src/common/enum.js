@@ -35,10 +35,10 @@ const studentLoanStatus = [{
     name:"Pelunasan"
   },{
     code:"5",
-    name:"Pengembalian Investasi"
+    name:"Pengembalian Pinjaman"
   },{
     code:"6",
-    name:"Pendapatan Investasi"
+    name:"Pendapatan Pinjaman"
   }]
   
   const productType = [{
@@ -57,7 +57,7 @@ const studentLoanStatus = [{
     name:"Harus dibayar"
   },{
     code:"2",
-    name:"Investasi gagal"
+    name:"Pinjaman gagal"
   },{
     code:"3",
     name:"Untuk dicocokan"

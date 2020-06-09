@@ -1,32 +1,32 @@
 <template>
   <section>
     <el-row>
-      <h1 class="one-title">用户信息</h1>
+      <h1 class="one-title">Informasi Pengguna</h1>
       <div style="clear:both;">
         <el-col :span="8" class="grid-content">
-          <div><span>手机号:</span><span>{{ authData.mobileNumber }}</span></div>
-          <div><span>姓名:</span><span>{{ authData.realName}}</span></div>
-          <div><span>身份证号:</span><span>{{ authData.idCardNo }}</span></div>
-          <div><span>宗教:</span><span>{{ authData.religion }}</span></div>
-          <div><span>税号:</span><span>{{ authData.npwpNo }}</span></div>
-          <div><span>出生地址:</span><span>{{ authData.birthAddressRo.birthProvince + ' ' + authData.birthAddressRo.birthCity + ' ' +
+          <div><span>Nomor Ponsel:</span><span>{{ authData.mobileNumber }}</span></div>
+          <div><span>Nama:</span><span>{{ authData.realName}}</span></div>
+          <div><span>Nomor Id:</span><span>{{ authData.idCardNo }}</span></div>
+          <div><span>Agama:</span><span>{{ authData.religion }}</span></div>
+          <div><span>NPWP:</span><span>{{ authData.npwpNo }}</span></div>
+          <div><span>Tempat Lahir:</span><span>{{ authData.birthAddressRo.birthProvince + ' ' + authData.birthAddressRo.birthCity + ' ' +
             authData.birthAddressRo.birthBigDirect  + ' ' + authData.birthAddressRo.birthSmallDirect + ' ' + authData.birthAddressRo.birthDetailed  }}</span></div>
         </el-col>
         <el-col :span="8" class="grid-content">
-          <div><span>出生日期:</span><span>{{ authData.birthDate }}</span></div>
-          <div><span>年龄:</span><span>{{ authData.age }}</span></div>
-          <div><span>性别:</span><span>{{ authData.sex }}</span></div>
-          <div><span>年收入:</span><span>{{ authData.yearSalary }}</span></div>
-          <div><span>印尼税务居籍:</span><span>{{ authData.salaryHomeValue }}</span></div>
-          <div><span>居住地址:</span><span>{{ authData.liveAddressRo.liveProvince + ' ' + authData.liveAddressRo.liveCity + ' '+
+          <div><span>Tanggal Lahir:</span><span>{{ authData.birthDate }}</span></div>
+          <div><span>Usia:</span><span>{{ authData.age }}</span></div>
+          <div><span>Jenis Kelamin:</span><span>{{ authData.sex }}</span></div>
+          <div><span>Penghasilan Tahunan:</span><span>{{ authData.yearSalary }}</span></div>
+          <div><span>Domisili Pajak Indonesia:</span><span>{{ authData.salaryHomeValue }}</span></div>
+          <div><span>Alamat Tempat Tinggal:</span><span>{{ authData.liveAddressRo.liveProvince + ' ' + authData.liveAddressRo.liveCity + ' '+
             authData.liveAddressRo.liveBigDirect+ ' ' + authData.liveAddressRo.liveSmallDirect + ' ' + authData.liveAddressRo.liveDetailed  }}</span></div>
         </el-col>
         <el-col :span="6" class="grid-content">
-          <div><span>教育程度:</span><span>{{ authData.education }}</span></div>
-          <div><span>工作:</span><span>{{ authData.job }}</span></div>
-          <div><span>行业:</span><span>{{ authData.workField }}</span></div>
-          <div><span>工作年限:</span><span>{{ authData.workTime }}</span></div>
-          <div><span>其他资产来源:</span><span>{{ authData.otherSalaryFrom }}</span></div>
+          <div><span>Tingkat Pendidikan:</span><span>{{ authData.education }}</span></div>
+          <div><span>Pekerjaan:</span><span>{{ authData.job }}</span></div>
+          <div><span>Industri:</span><span>{{ authData.workField }}</span></div>
+          <div><span>Lama Bekerja (Tahun):</span><span>{{ authData.workTime }}</span></div>
+          <div><span>Penghasilan Lainnya:</span><span>{{ authData.otherSalaryFrom }}</span></div>
         </el-col>
       </div>
     </el-row>
@@ -38,43 +38,43 @@
             <ml-photo-box refs='photoBox'></ml-photo-box>
             <div style="padding: 14px;">
               <img :src="idCardImage" class="imgCss" @click.stop="checkIdCardUrl">
-              <span class="yituInfo">身份证照片</span>
+              <span class="yituInfo">Foto Kartu Id</span>
             </div>
           </el-card>
         </el-col>
       </el-row>
 
       <el-row>
-        <el-button type="primary" @click="operate">操作</el-button>
+        <el-button type="primary" @click="operate">Opsi</el-button>
       </el-row>
     </div>
 
-    <el-dialog title="操作" :visible.sync="dialogTableVisible" width='35%'>
+    <el-dialog title="Ubah" :visible.sync="dialogTableVisible" width='35%'>
       <el-form :model="editForm" label-position="left" label-width="140px" ref="editForm">
-        <el-form-item label="处理结果">
+        <el-form-item label="Hasil Pengolahan">
           <el-select v-model="editForm.pass" clearable @change="handleChange">
             <el-option v-for="item in passList" :key="item.code" :label="item.name" :value="item.code">
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="认证失败原因" v-if="showFailReason">
+        <el-form-item label="Alasan Kegagalan" v-if="showFailReason">
           <el-select v-model="editForm.cause" clearable>
             <el-option v-for="item in authStatusList" :key="item.id" :label="item.name" :value="item.name">
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="备注（非必填）" prop="remark">
+        <el-form-item label="Catatan" prop="remark">
           <el-input v-model="editForm.remark " type="textarea" auto-complete="off" :maxlength="210"></el-input>
         </el-form-item>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogTableVisible = false">取 消</el-button>
-        <el-button type="primary" @click="refuseOrder" :loading="refuseOrderLoading">提 交</el-button>
+        <el-button @click="dialogTableVisible = false">Batal</el-button>
+        <el-button type="primary" @click="refuseOrder" :loading="refuseOrderLoading">Ubah</el-button>
       </div>
     </el-dialog>
 
-    <!-- 图片预览 -->
+    <!-- Picture Preview -->
     <el-dialog :visible.sync="dialogVisible" size="full" class="photo_box">
       <img width="95%" :src="idCardImage" alt="" style="margin-left: 2.5%;">
     </el-dialog>
@@ -101,20 +101,20 @@
         dialogTableVisible:false,
         passList:[{
           code:'0',
-          name:'认证成功'
+          name:'Berhasil'
         },{
           code:'1',
-          name:'认证失败'
+          name:'Gagal'
         }],
         authStatusList:[{
           code:'1',
-          name:'姓名有误'
+          name:'Nama Salah'
         },{
           code:'2',
-          name:'身份证号有误'
+          name:'Nomor Id Salah'
         },{
           code:'3',
-          name:'身份证照片不清晰'
+          name:'Foto tidak jelas'
         }],
         editForm:{
           pass:'',
@@ -145,10 +145,10 @@
         refuseOrder(){
           
           if(!this.editForm.pass){
-            this.$message({type:'warning',message:'请输入处理结果'});
+            this.$message({type:'warning',message:'Silakan masukkan hasil pemrosesan'});
             return;
           }else if(this.editForm.pass=='1' && !this.editForm.cause){
-            this.$message({type:'warning',message:'请输入认证失败原因'});
+            this.$message({type:'warning',message:'Silakan masukkan alasan penolakan'});
             return;
           }
           let _data = Object.assign({}, this.editForm);
@@ -156,7 +156,7 @@
           this.$http.post('api-user/user/checkUserAuthStatus',_data).then(response =>{
             let {data} = response;
             if(data.code == 0){
-              this.$message.info('操作成功');
+              this.$message.info('Berhasil menolak permohonan');
               setTimeout(function(){window.close()},1000);
             }else {
               this.$message.info(data.message);
@@ -210,7 +210,7 @@
     background: #f1f2f7;
   }
 
-  /* 标题 */
+  /* Title */
   .main-title{
     font-size: 22px;
     margin-top: -15px;
@@ -250,19 +250,19 @@
     height: 10px;
     background: #f1f2f7;
   }
-  /*借款信息*/
+  /*Loan Information*/
   .loanDetail{
     margin: 0 30px 15px;
     width: 94%;
     max-height:250px;
   }
-  /*依图识别*/
+  /*Identify by Image*/
   .yituInfo{
     display: block;
     text-align: center;
     margin-top: 10px;
   }
-  /*征信*/
+  /*Credit*/
   .orderBox .box-card{
     height: 225px;
   }

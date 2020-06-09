@@ -1,0 +1,549 @@
+{
+	"_religion": [
+	    {
+	    	"id": 4,
+	    	"dicId": "13",
+	    	"dicItemValue": "1",
+	    	"dicItemName": "Islam",
+	    	"language": "ID"
+	    },
+	    {
+	    	"id": 5,
+	    	"dicId": "13",
+	    	"dicItemValue": "2",
+	    	"dicItemName": "Kristen Protestan",
+	    	"language": "ID"
+	    },
+	    {
+	    	"id": 6,
+	    	"dicId": "13",
+	    	"dicItemValue": "3",
+	    	"dicItemName": "Kristen Katolik",
+	    	"language": "ID"
+	    },
+	    {
+	    	"id": 7,
+	    	"dicId": "13",
+	    	"dicItemValue": "4",
+	    	"dicItemName": "Hindu",
+	    	"language": "ID"
+	    },
+	    {
+	    	"id": 8,
+	    	"dicId": "13",
+	    	"dicItemValue": "5",
+	    	"dicItemName": "Buddha",
+	    	"language": "ID"
+	    },
+	    {
+	    	"id": 9,
+	    	"dicId": "13",
+	    	"dicItemValue": "6",
+	    	"dicItemName": "Konghucu",
+	    	"language": "ID"
+	    }
+	],
+
+	"_education": [
+		{
+			"id": 10,
+			"dicId": "14",
+			"dicItemValue": "1",
+			"dicItemName": "Sekolah dasar",
+			"language": "ID"
+		},
+		{
+			"id": 11,
+			"dicId": "14",
+			"dicItemValue": "2",
+			"dicItemName": "Sekolah Menengah Pertama",
+			"language": "ID"
+		},
+		{
+			"id": 12,
+			"dicId": "14",
+			"dicItemValue": "3",
+			"dicItemName": "Sekolah Menengah Atas",
+			"language": "ID"
+		},
+		{
+			"id": 13,
+			"dicId": "14",
+			"dicItemValue": "4",
+			"dicItemName": "Diploma",
+			"language": "ID"
+		},
+		{
+			"id": 14,
+			"dicId": "14",
+			"dicItemValue": "5",
+			"dicItemName": "Sarjana",
+			"language": "ID"
+		},
+		{
+			"id": 15,
+			"dicId": "14",
+			"dicItemValue": "6",
+			"dicItemName": "Pascasarjana",
+			"language": "ID"
+		},
+		{
+			"id": 16,
+			"dicId": "14",
+			"dicItemValue": "7",
+			"dicItemName": "Doktor",
+			"language": "ID"
+		}	
+	],
+
+	"_position": [
+		{
+			"id": 36,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Pegawai negeri",
+			"language": "ID"
+		},
+		{
+			"id": 37,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Pekerja",
+			"language": "ID"
+		},
+		{
+			"id": 38,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Petani",
+			"language": "ID"
+		},
+		{
+			"id": 39,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Pengemudi",
+			"language": "ID"
+		},
+		{
+			"id": 40,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Pembersih",
+			"language": "ID"
+		},
+		{
+			"id": 41,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Staf perusahaan",
+			"language": "ID"
+		},
+		{
+			"id": 42,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Pembantu rumah tangga",
+			"language": "ID"
+		},
+		{
+			"id": 43,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Koki",
+			"language": "ID"
+		},
+		{
+			"id": 44,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Pelayan",
+			"language": "ID"
+		},
+		{
+			"id": 45,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Staf medis",
+			"language": "ID"
+		},
+		{
+			"id": 46,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Guru",
+			"language": "ID"
+		},
+		{
+			"id": 47,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Kurir",
+			"language": "ID"
+		},
+		{
+			"id": 48,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Staf Penjualan",
+			"language": "ID"
+		},
+		{
+			"id": 49,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Keamanan",
+			"language": "ID"
+		},
+		{
+			"id": 50,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Insinyur",
+			"language": "ID"
+		},
+		{
+			"id": 51,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Vendor individu",
+			"language": "ID"
+		},
+		{
+			"id": 52,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Ibu rumah tangga",
+			"language": "ID"
+		},
+		{
+			"id": 53,
+			"dicId": "15",
+			"dicItemValue": "",
+			"dicItemName": "Lainnya",
+			"language": "ID"
+		}
+	],
+
+	"_borrowUse": [
+		{
+			"id": 6082,
+			"dicId": "29",
+			"dicItemValue": "",
+			"dicItemName": "Pendidikan",
+			"language": "ID"
+		},
+		{
+			"id": 6083,
+			"dicId": "29",
+			"dicItemValue": "",
+			"dicItemName": "Renovasi",
+			"language": "ID"
+		},
+		{
+			"id": 6084,
+			"dicId": "29",
+			"dicItemValue": "",
+			"dicItemName": "Liburan",
+			"language": "ID"
+		},
+		{
+			"id": 6085,
+			"dicId": "29",
+			"dicItemValue": "",
+			"dicItemName": "Pernikahan",
+			"language": "ID"
+		},
+		{
+			"id": 6086,
+			"dicId": "29",
+			"dicItemValue": "",
+			"dicItemName": "Gadget",
+			"language": "ID"
+		},
+		{
+			"id": 6087,
+			"dicId": "29",
+			"dicItemValue": "",
+			"dicItemName": "Uang sewa",
+			"language": "ID"
+		},
+		{
+			"id": 6088,
+			"dicId": "29",
+			"dicItemValue": "",
+			"dicItemName": "Peralatan rumah tangga",
+			"language": "ID"
+		},
+		{
+			"id": 6089,
+			"dicId": "29",
+			"dicItemValue": "",
+			"dicItemName": "Pengobatan",
+			"language": "ID"
+		},
+		{
+			"id": 6090,
+			"dicId": "29",
+			"dicItemValue": "",
+			"dicItemName": "Lainnya",
+			"language": "ID"
+		}
+
+	],
+
+	"_industry":[
+		{
+			"id": 6120,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Alat Berat & Peralatan Industri",
+			"language": "ID"
+		},
+		{
+			"id": 6121,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Alat Elektronik, Perlengkapan dan Perabotan Rumah Tangga / Kantor",
+			"language": "ID"
+		},
+		{
+			"id": 6122,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Asuransi",
+			"language": "ID"
+		},
+		{
+			"id": 6123,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Bahan & Kimia Industri",
+			"language": "ID"
+		},
+		{
+			"id": 6124,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Bahan Bangunan & Sanitary",
+			"language": "ID"
+		},
+		{
+			"id": 6125,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Busana, Tekstil & Fashion",
+			"language": "ID"
+		},
+		{
+			"id": 6126,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Business Process Outsourcing (BPO)",
+			"language": "ID"
+		},
+		{
+			"id": 6127,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Conglomerate / Holding Company",
+			"language": "ID"
+		},
+		{
+			"id": 6128,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Engineering, Procurement, Construction (EPC)",
+			"language": "ID"
+		},
+		{
+			"id": 6129,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "FMCG",
+			"language": "ID"
+		},
+		{
+			"id": 6130,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "IT & Telekomunikasi",
+			"language": "ID"
+		},
+		{
+			"id": 6131,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Jasa Lainnya",
+			"language": "ID"
+		},
+		{
+			"id": 6132,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Kecantikan & Kesehatan",
+			"language": "ID"
+		},
+		{
+			"id": 6133,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Kertas dan Produk Hutan",
+			"language": "ID"
+		},
+		{
+			"id": 6134,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Konsultan, Legal & Riset",
+			"language": "ID"
+		},
+		{
+			"id": 6135,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Layanan Kesehatan & Farmasi",
+			"language": "ID"
+		},
+		{
+			"id": 6136,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Lembaga Pemerintah, Non Profit, NGO & Facilitas Publik",
+			"language": "ID"
+		},
+		{
+			"id": 6137,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Lingkungan, Jasa Perawatan & Perbaikan Fasilitas",
+			"language": "ID"
+		},
+		{
+			"id": 6138,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Makanan & Minuman",
+			"language": "ID"
+		},
+		{
+			"id": 6139,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Manufaktur Lainnya",
+			"language": "ID"
+		},
+		{
+			"id": 6140,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Media, Hiburan & Periklanan",
+			"language": "ID"
+		},
+		{
+			"id": 6141,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Otomotif & Komponen",
+			"language": "ID"
+		},
+		{
+			"id": 6142,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Pendidikan & Pelatihan",
+			"language": "ID"
+		},
+		{
+			"id": 6143,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Penginapan, Perjalanan & Pariwisata",
+			"language": "ID"
+		},
+		{
+			"id": 6144,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Perbankan & Lembaga Pembiayaan",
+			"language": "ID"
+		},
+		{
+			"id": 6145,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Percetakan & Penerbitan",
+			"language": "ID"
+		},
+		{
+			"id": 6146,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Perhiasan & Barang Mewah",
+			"language": "ID"
+		},
+		{
+			"id": 6147,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Pertambangan & Migas",
+			"language": "ID"
+		},
+		{
+			"id": 6148,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Pertanian, Perikanan & Perkebunan",
+			"language": "ID"
+		},
+		{
+			"id": 6149,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Real Estate & Properti",
+			"language": "ID"
+		},
+		{
+			"id": 6150,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Restauran & Layanan Makanan",
+			"language": "ID"
+		},
+		{
+			"id": 6151,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Retail & Distribusi",
+			"language": "ID"
+		},
+		{
+			"id": 6152,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Rokok & Tembakau",
+			"language": "ID"
+		},
+		{
+			"id": 6153,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Science & Technology",
+			"language": "ID"
+		},
+		{
+			"id": 6154,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Transportasi & Logistik",
+			"language": "ID"
+		},
+		{
+			"id": 6155,
+			"dicId": "30",
+			"dicItemValue": "",
+			"dicItemName": "Utilitas & Energi",
+			"language": "ID"
+		}
+	]
+}

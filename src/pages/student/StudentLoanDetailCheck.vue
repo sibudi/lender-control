@@ -1,36 +1,36 @@
 <template>
   <section>
     <el-row>
-      <h1 class="one-title">第一步详情</h1>
+      <h1 class="one-title">Langkah Pertama</h1>
       <div style="clear:both;">
         <el-col :span="12" class="grid-content">
-          <div><span>姓名:</span><span>{{ loanInfoOne.userName}}</span></div>
-          <div><span>身份证号:</span><span>{{ loanInfoOne.idCard }}</span></div>
-          <div><span>手机号:</span><span>{{ loanInfoOne.mobileNumber }}</span></div>
-          <div><span>宗教:</span><span>{{ loanInfoOne.religion }}</span></div>
-          <div><span>家庭年收入:</span><span>{{ loanInfoOne.familyYearSalary }}</span></div>
-          <div><span>家庭成员数量:</span><span>{{ loanInfoOne.familyMember }}</span></div>
-          <!--<div><span>税号:</span><span>{{ loanInfoOne.npwpNo }}</span></div>-->
-          <div><span>身份证地址:</span><span>{{ loanInfoOne.idAddressRo.province + ' ' + loanInfoOne.idAddressRo.city + ' ' +
+          <div><span>Nama:</span><span>{{ loanInfoOne.userName}}</span></div>
+          <div><span>Nomor Id:</span><span>{{ loanInfoOne.idCard }}</span></div>
+          <div><span>Nomor Ponsel:</span><span>{{ loanInfoOne.mobileNumber }}</span></div>
+          <div><span>Agama:</span><span>{{ loanInfoOne.religion }}</span></div>
+          <div><span>Penghasilan Tahunan:</span><span>{{ loanInfoOne.familyYearSalary }}</span></div>
+          <div><span>Jumlah Anggota Keluarga:</span><span>{{ loanInfoOne.familyMember }}</span></div>
+          <!--<div><span>NPWP:</span><span>{{ loanInfoOne.npwpNo }}</span></div>-->
+          <div><span>Alamat sesuai Id:</span><span>{{ loanInfoOne.idAddressRo.province + ' ' + loanInfoOne.idAddressRo.city + ' ' +
             loanInfoOne.idAddressRo.bigDirect  + ' ' + loanInfoOne.idAddressRo.smallDirect + ' ' + loanInfoOne.idAddressRo.detailed  }}</span></div>
-          <div><span>现居住地址:</span><span>{{ loanInfoOne.liveAddressRo.province + ' ' + loanInfoOne.liveAddressRo.city + ' '+
+          <div><span>Alamat saat ini:</span><span>{{ loanInfoOne.liveAddressRo.province + ' ' + loanInfoOne.liveAddressRo.city + ' '+
             loanInfoOne.liveAddressRo.bigDirect+ ' ' + loanInfoOne.liveAddressRo.smallDirect + ' ' + loanInfoOne.liveAddressRo.detailed  }}</span></div>
         </el-col>
         <!--<el-col :span="12" class="grid-content">
-          <div><span>印尼税务居籍:</span><span>{{ loanInfoOne.salaryHomeValue }}</span></div>
+          <div><span>Domisili Pajak Indonesia:</span><span>{{ loanInfoOne.salaryHomeValue }}</span></div>
         </el-col>-->
         <el-col :span="12" class="grid-content">
-          <div><span>性别:</span><span>{{ getSex(loanInfoOne.sex) }}</span></div>
-          <div><span>年龄:</span><span>{{ loanInfoOne.age }}</span></div>
-          <div><span>邮箱:</span><span>{{ loanInfoOne.email }}</span></div>
-          <div><span>银行名称:</span><span>{{ loanInfoOne.bankName }}</span></div>
-          <div><span>银行卡号:</span><span>{{ loanInfoOne.bankNo }}</span></div>
-          <!--<div><span>教育程度:</span><span>{{ loanInfoOne.education }}</span></div>-->
-          <div><span>是否有分期贷款:</span><span>{{ loanAbleResult(loanInfoOne.loanAble) }}</span></div>
-          <div><span>每月分期付款金额:</span><span>{{ loanInfoOne.loanAmount }}</span></div>
-          <div><span>邀请码:</span><span>{{ inviteCode }}</span></div>
-          <!--<div><span>工作年限:</span><span>{{ loanInfoOne.workTime }}</span></div>
-          <div><span>其他资产来源:</span><span>{{ loanInfoOne.otherSalaryFrom }}</span></div>-->
+          <div><span>Jenis Kelamin:</span><span>{{ getSex(loanInfoOne.sex) }}</span></div>
+          <div><span>Usia:</span><span>{{ loanInfoOne.age }}</span></div>
+          <div><span>Email:</span><span>{{ loanInfoOne.email }}</span></div>
+          <div><span>Nama Bank:</span><span>{{ loanInfoOne.bankName }}</span></div>
+          <div><span>Nomor Rekening:</span><span>{{ loanInfoOne.bankNo }}</span></div>
+          <!--<div><span>Pendidikan:</span><span>{{ loanInfoOne.education }}</span></div>-->
+          <div><span>Apakah Memiliki Cicilan:</span><span>{{ loanAbleResult(loanInfoOne.loanAble) }}</span></div>
+          <div><span>Nominal Cicilan Bulanan:</span><span>{{ loanInfoOne.loanAmount }}</span></div>
+          <div><span>Kode Undangan:</span><span>{{ inviteCode }}</span></div>
+          <!--<div><span>Lama Bekerja (Tahun):</span><span>{{ loanInfoOne.workTime }}</span></div>
+          <div><span>Penghasilan Lainnya:</span><span>{{ loanInfoOne.otherSalaryFrom }}</span></div>-->
         </el-col>
       </div>
     </el-row>
@@ -43,7 +43,7 @@
               <ml-photo-box refs='photoBox'></ml-photo-box>
               <div style="padding: 14px;">
                 <img :src="loanInfoOne.idCardUrl" class="imgCss" @click.stop="checkIdCardUrl">
-                <span class="yituInfo">身份证照片</span>
+                <span class="yituInfo">Foto Kartu Id</span>
               </div>
             </el-card>
           </el-col>
@@ -52,7 +52,7 @@
               <!--<ml-photo-box ref='photoBox'></ml-photo-box>-->
               <div style="padding: 14px;">
                 <img :src="loanInfoOne.familyCardUrl" class="imgCss" @click.stop="checkFamilyCardUrl">
-                <span class="yituInfo">家庭卡照片</span>
+                <span class="yituInfo">Foto Kartu Keluarga</span>
               </div>
             </el-card>
           </el-col>
@@ -66,7 +66,7 @@
               <!--<ml-photo-box ref='photoBox'></ml-photo-box>-->
               <div style="padding: 14px;">
                 <img :src="loanInfoOne.studentCardUrl" class="imgCss" @click.stop="checkStudentCardUrl">
-                <span class="yituInfo">学生证照片</span>
+                <span class="yituInfo">Foto Kartu Pelajar</span>
               </div>
             </el-card>
           </el-col>
@@ -75,7 +75,7 @@
               <!--<ml-photo-box ref='photoBox'></ml-photo-box>-->
               <div style="padding: 14px;">
                 <img :src="loanInfoOne.idCardInHandUrl" class="imgCss" @click.stop="checkIdCardInHandUrl">
-                <span class="yituInfo">手持身份证自拍照</span>
+                <span class="yituInfo">Swafoto dengan Id</span>
               </div>
             </el-card>
           </el-col>
@@ -89,7 +89,7 @@
               <!--<ml-photo-box ref='photoBox'></ml-photo-box>-->
               <div style="padding: 14px;">
                 <img :src="loanInfoOne.collageStudentUrl" class="imgCss" @click.stop="checkCollageStudentUrl">
-                <span class="yituInfo">大学学生证明照片</span>
+                <span class="yituInfo">Foto Kartu Mahasiswa</span>
               </div>
             </el-card>
           </el-col>
@@ -99,61 +99,61 @@
     <div class="divid-line"></div>
 
     <el-row>
-      <h1 class="one-title">第二步详情</h1>
+      <h1 class="one-title">Langkah Kedua</h1>
       <div style="clear:both;">
         <el-col :span="12" class="grid-content">
-          <div><span>学校名称:</span><span>{{ loanInfoTwo.schoolName}}</span></div>
-          <div><span>学校电话:</span><span>{{ loanInfoTwo.schoolMobile }}</span></div>
-          <div><span>教育程度:</span><span>{{ loanInfoTwo.level }}</span></div>
-          <div><span>入学年份:</span><span>{{ loanInfoTwo.enterYear }}</span></div>
-          <div><span>学院和专业:</span><span>{{ loanInfoTwo.subject }}</span></div>
-          <div><span>学号:</span><span>{{ loanInfoTwo.studentId }}</span></div>
-          <div><span>学生学校地址:</span><span>{{ loanInfoTwo.schoolAddressRo.province + ' ' + loanInfoTwo.schoolAddressRo.city + ' ' +
+          <div><span>Nama Sekolah:</span><span>{{ loanInfoTwo.schoolName}}</span></div>
+          <div><span>Nomor Telepon Sekolah:</span><span>{{ loanInfoTwo.schoolMobile }}</span></div>
+          <div><span>Tingkat Pendidikan:</span><span>{{ loanInfoTwo.level }}</span></div>
+          <div><span>Tahun Masuk:</span><span>{{ loanInfoTwo.enterYear }}</span></div>
+          <div><span>Program Studi:</span><span>{{ loanInfoTwo.subject }}</span></div>
+          <div><span>Nomor Induk Siswa:</span><span>{{ loanInfoTwo.studentId }}</span></div>
+          <div><span>Alamat Sekolah:</span><span>{{ loanInfoTwo.schoolAddressRo.province + ' ' + loanInfoTwo.schoolAddressRo.city + ' ' +
             loanInfoTwo.schoolAddressRo.bigDirect  + ' ' + loanInfoTwo.schoolAddressRo.smallDirect + ' ' + loanInfoTwo.schoolAddressRo.detailed  }}</span></div>
         </el-col>
 
         <el-col :span="12" class="grid-content">
-          <div><span>平均基点:</span><span>{{ loanInfoTwo.averageBasePoint }}</span></div>
-          <div><span>学费:</span><span>{{ loanInfoTwo.schoolFee }}</span></div>
-          <div><span>学费支付期:</span><span>{{ loanInfoTwo.schoolFeeTerm }}</span></div>
-          <div><span>学费支付方式:</span><span>{{ loanInfoTwo.schoolFeePayWay }}</span></div>
-          <div><span>支付学费银行名称:</span><span>{{ loanInfoTwo.schoolFeePayBank }}</span></div>
-          <!--<div><span>教育程度:</span><span>{{ loanInfoTwo.education }}</span></div>-->
-          <div><span>支付学费银行卡号:</span><span>{{ loanInfoTwo.schoolFeePayBankNo }}</span></div>
-          <div><span>学费支付描述详情:</span><span>{{ loanInfoTwo.schoolFeePayDetail }}</span></div>
-          <!--<div><span>工作年限:</span><span>{{ loanInfoTwo.workTime }}</span></div>
-          <div><span>其他资产来源:</span><span>{{ loanInfoTwo.otherSalaryFrom }}</span></div>-->
+          <div><span>Nilai Rata-rata:</span><span>{{ loanInfoTwo.averageBasePoint }}</span></div>
+          <div><span>Biaya Sekolah:</span><span>{{ loanInfoTwo.schoolFee }}</span></div>
+          <div><span>Durasi Biaya Sekolah:</span><span>{{ loanInfoTwo.schoolFeeTerm }}</span></div>
+          <div><span>Metode Pembayaran Biaya Sekolah:</span><span>{{ loanInfoTwo.schoolFeePayWay }}</span></div>
+          <div><span>Nama Bank Pembayaran Biaya Sekolah :</span><span>{{ loanInfoTwo.schoolFeePayBank }}</span></div>
+          <!--<div><span>Tingkat Pendidikan:</span><span>{{ loanInfoTwo.education }}</span></div>-->
+          <div><span>Nomor Rekening Bank Sekolah:</span><span>{{ loanInfoTwo.schoolFeePayBankNo }}</span></div>
+          <div><span>Deskripsi Biaya Sekolah:</span><span>{{ loanInfoTwo.schoolFeePayDetail }}</span></div>
+          <!--<div><span>Lama Bekerja (Tahun):</span><span>{{ loanInfoTwo.workTime }}</span></div>
+          <div><span>Penghasilan Lainnya:</span><span>{{ loanInfoTwo.otherSalaryFrom }}</span></div>-->
         </el-col>
       </div>
     </el-row>
     <div class="divid-line"></div>
 
     <el-row>
-      <h1 class="one-title">第三步详情</h1>
+      <h1 class="one-title">Langkah Ketiga</h1>
       <div style="clear:both;">
         <el-col :span="12" class="grid-content">
-          <div><span>担保人姓名:</span><span>{{ loanInfoThree.userName}}</span></div>
-          <div><span>担保人身份证号:</span><span>{{ loanInfoThree.idCardNo }}</span></div>
-          <div><span>担保人与借款人关系:</span><span>{{ loanInfoThree.relationship }}</span></div>
-          <div><span>担保人税卡号:</span><span>{{ loanInfoThree.taxCardNo }}</span></div>
-          <div><span>担保人邮箱:</span><span>{{ loanInfoThree.email }}</span></div>
-          <div><span>担保人身份证地址:</span><span>{{ loanInfoThree.idAddressRo.province + ' ' + loanInfoThree.idAddressRo.city + ' ' +
+          <div><span>Nama Penjamin:</span><span>{{ loanInfoThree.userName}}</span></div>
+          <div><span>Nomor Id Penjamin:</span><span>{{ loanInfoThree.idCardNo }}</span></div>
+          <div><span>Hubungan dengan Penjamin:</span><span>{{ loanInfoThree.relationship }}</span></div>
+          <div><span>NPWP Penjamin:</span><span>{{ loanInfoThree.taxCardNo }}</span></div>
+          <div><span>Email Penjamin:</span><span>{{ loanInfoThree.email }}</span></div>
+          <div><span>Alamat Penjamin:</span><span>{{ loanInfoThree.idAddressRo.province + ' ' + loanInfoThree.idAddressRo.city + ' ' +
             loanInfoThree.idAddressRo.bigDirect  + ' ' + loanInfoThree.idAddressRo.smallDirect + ' ' + loanInfoThree.idAddressRo.detailed  }}</span></div>
-          <div><span>担保人现居地地址:</span><span>{{ loanInfoThree.liveAddressRo.province + ' ' + loanInfoThree.liveAddressRo.city + ' ' +
+          <div><span>Alamat Penjamin saat ini:</span><span>{{ loanInfoThree.liveAddressRo.province + ' ' + loanInfoThree.liveAddressRo.city + ' ' +
             loanInfoThree.liveAddressRo.bigDirect  + ' ' + loanInfoThree.liveAddressRo.smallDirect + ' ' + loanInfoThree.liveAddressRo.detailed  }}</span></div>
         </el-col>
 
         <el-col :span="12" class="grid-content">
-          <div><span>担保人手机号:</span><span>{{ loanInfoThree.mobileNumber }}</span></div>
-          <div><span>担保人公司名称:</span><span>{{ loanInfoThree.companyName }}</span></div>
-          <div><span>担保人公司联系方式:</span><span>{{ loanInfoThree.companyMobile }}</span></div>
-          <div><span>职位:</span><span>{{ loanInfoThree.position }}</span></div>
-          <div><span>担保人月收入:</span><span>{{ loanInfoThree.income }}</span></div>
-          <div><span>是否在doit借过款:</span><span>{{ loanInfoThree.doitLoan }}</span></div>
-          <!--<div><span>教育程度:</span><span>{{ loanInfoThree.education }}</span></div>-->
-          <!--<div><span>支付学费银行卡号:</span><span>{{ loanInfoThree.schoolFeePayBankNo }}</span></div>
-          <div><span>学费支付描述详情:</span><span>{{ loanInfoThree.schoolFeePayDetail }}</span></div>-->
-          <div><span>担保人公司地址:</span><span>{{ loanInfoThree.liveCompanyAddressRo.province + ' ' + loanInfoThree.liveCompanyAddressRo.city + ' ' +
+          <div><span>Nomor Ponsel:</span><span>{{ loanInfoThree.mobileNumber }}</span></div>
+          <div><span>Nama Perusahaan Penjamin:</span><span>{{ loanInfoThree.companyName }}</span></div>
+          <div><span>Nomor Telepon Perusahaan Penjamin:</span><span>{{ loanInfoThree.companyMobile }}</span></div>
+          <div><span>Posisi Penjamin:</span><span>{{ loanInfoThree.position }}</span></div>
+          <div><span>Penghasilan Bulanan Penjamin:</span><span>{{ loanInfoThree.income }}</span></div>
+          <div><span>Apakah Penjamin Nasabah Doit:</span><span>{{ loanInfoThree.doitLoan }}</span></div>
+          <!--<div><span>Pendidikan:</span><span>{{ loanInfoThree.education }}</span></div>-->
+          <!--<div><span>Nomor Rekening Sekolah:</span><span>{{ loanInfoThree.schoolFeePayBankNo }}</span></div>
+          <div><span>Tujuan Pembayaran Uang Sekolah:</span><span>{{ loanInfoThree.schoolFeePayDetail }}</span></div>-->
+          <div><span>Alamat Perusahaan Penjamin:</span><span>{{ loanInfoThree.liveCompanyAddressRo.province + ' ' + loanInfoThree.liveCompanyAddressRo.city + ' ' +
             loanInfoThree.liveCompanyAddressRo.bigDirect  + ' ' + loanInfoThree.liveCompanyAddressRo.smallDirect + ' ' + loanInfoThree.liveCompanyAddressRo.detailed  }}</span></div>
         </el-col>
       </div>
@@ -168,7 +168,7 @@
               <!--<ml-photo-box ref='photoBox'></ml-photo-box>-->
               <div style="padding: 14px;">
                 <img :src="loanInfoThree.idCardUrl" class="imgCss" @click.stop="checkIdCardUrlThree">
-                <span class="yituInfo">身份证照片</span>
+                <span class="yituInfo">Foto Kartu Id</span>
               </div>
             </el-card>
           </el-col>
@@ -177,7 +177,7 @@
               <!--<ml-photo-box ref='photoBox'></ml-photo-box>-->
               <div style="padding: 14px;">
                 <img :src="loanInfoThree.payDetailUrl" class="imgCss" @click.stop="checkPayDetailUrl">
-                <span class="yituInfo">工资单</span>
+                <span class="yituInfo">Slip Gaji</span>
               </div>
             </el-card>
           </el-col>
@@ -191,7 +191,7 @@
               <!--<ml-photo-box ref='photoBox'></ml-photo-box>-->
               <div style="padding: 14px;">
                 <img :src="loanInfoThree.aggrementUrl" class="imgCss" @click.stop="checkAggrementUrl">
-                <span class="yituInfo">担保人声明照片</span>
+                <span class="yituInfo">Foto Pernyataan Penjamin</span>
               </div>
             </el-card>
           </el-col>
@@ -200,7 +200,7 @@
               <!--<ml-photo-box ref='photoBox'></ml-photo-box>-->
               <div style="padding: 14px;">
                 <img :src="loanInfoThree.aggrementInHandUrl" class="imgCss" @click.stop="checkAggrementInHandUrl">
-                <span class="yituInfo">担保人持有声明照片</span>
+                <span class="yituInfo">Swafoto Penjamin dengan Surat Peryataan</span>
               </div>
             </el-card>
           </el-col>
@@ -212,15 +212,15 @@
 
     <div>
       <el-row>
-        <h1 class="one-title">第四步详情</h1>
+        <h1 class="one-title">Langkah Keempat</h1>
         <div style="clear:both;">
           <el-col :span="12" class="grid-content">
-            <div><span>姓名:</span><span>{{ loanInfoFour.username}}</span></div>
-            <div><span>与借款人关系:</span><span>{{ loanInfoFour.relationship }}</span></div>
+            <div><span>Nama:</span><span>{{ loanInfoFour.username}}</span></div>
+            <div><span>Hubungan dengan Peminjam:</span><span>{{ loanInfoFour.relationship }}</span></div>
           </el-col>
 
           <el-col :span="12" class="grid-content">
-            <div><span>手机号码:</span><span>{{ loanInfoFour.mobileNumber }}</span></div>
+            <div><span>Nomor Ponsel:</span><span>{{ loanInfoFour.mobileNumber }}</span></div>
           </el-col>
         </div>
       </el-row>
@@ -229,12 +229,12 @@
 
     <div>
       <el-row>
-        <el-button type="primary" @click="passOrder" :loading="passOrderLoading">通过</el-button>
-        <el-button type="" @click="dialogTableVisible = true" >拒绝</el-button>
+        <el-button type="primary" @click="passOrder" :loading="passOrderLoading">Lolos</el-button>
+        <el-button type="" @click="dialogTableVisible = true" >Tolak</el-button>
       </el-row>
     </div>
 
-    <el-dialog title="拒绝原因" :visible.sync="dialogTableVisible">
+    <el-dialog title="Alasan Penolakan" :visible.sync="dialogTableVisible">
       <el-form :model="editForm" label-position="left" label-width="100px" :rules="editFormRule" ref="editForm">
         <el-form-item label="" prop="reason">
           <el-input v-model="editForm.reason" type="textarea" auto-complete="off" :maxlength="210"></el-input>
@@ -242,12 +242,12 @@
 
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogTableVisible = false">取 消</el-button>
-        <el-button type="primary" @click="refuseOrder" :loading="refuseOrderLoading">提 交</el-button>
+        <el-button @click="dialogTableVisible = false">Batal</el-button>
+        <el-button type="primary" @click="refuseOrder" :loading="refuseOrderLoading">Simpan</el-button>
       </div>
     </el-dialog>
 
-    <!-- 图片预览 -->
+    <!-- Picture Preview -->
     <el-dialog :visible.sync="dialogVisible" size="full" class="photo_box">
       <img width="95%" :src="dialogImageUrl" alt="" style="margin-left: 2.5%;">
     </el-dialog>
@@ -276,7 +276,7 @@
         dialogTableVisible:false,
         editForm:{},
         editFormRule:{
-          reason:[{required:true, message:'请输入拒绝原因',trigger: 'blur'}]
+          reason:[{required:true, message:'Silakan masukkan alasan penolakan',trigger: 'blur'}]
         },
         passOrderLoading:false,
         refuseOrderLoading:false,
@@ -289,18 +289,18 @@
       loanAbleResult(type){
         let result = '';
         if(type == 1){
-          result = '有';
+          result = 'Ada';
         }else {
-          result = '无'
+          result = 'Tidak Ada'
         }
         return result;
       },
       doitLoanResult(type){
         let result = '';
         if(type == 1){
-          result = '是';
+          result = 'Ada';
         }else {
-          result = '否'
+          result = 'Tidak Ada'
         }
         return result;
       },
@@ -460,7 +460,7 @@
     background: #f1f2f7;
   }
 
-  /* 标题 */
+  /* Title */
   .main-title{
     font-size: 22px;
     margin-top: -15px;
@@ -500,19 +500,19 @@
     height: 10px;
     background: #f1f2f7;
   }
-  /*借款信息*/
+  /*Loan Information*/
   .loanDetail{
     margin: 0 30px 15px;
     width: 94%;
     max-height:250px;
   }
-  /*依图识别*/
+  /*Identify by Image*/
   .yituInfo{
     display: block;
     text-align: center;
     margin-top: 10px;
   }
-  /*征信*/
+  /*Credit*/
   .orderBox .box-card{
     height: 225px;
   }
