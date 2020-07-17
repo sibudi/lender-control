@@ -287,7 +287,7 @@
 					]"
         >
           <img
-            v-bind:src="process.env.SHOW_IMAGE+'?path='+detail.idCardImage+'&sessionId='+sessionId"
+            v-bind:src="this.SHOW_IMAGE+'?path='+detail.idCardImage+'&sessionId='+sessionId"
             style="max-width:350px;height:auto;"
           />
           <div class="uploadImg" style="text-align:left;">
@@ -323,7 +323,7 @@
 						]"
         >
           <a
-            :href="process.env.DOWNLOAD_ATTACHMENT+'?path='+detail.suratKuasaImage+'&sessionId='+sessionId"
+            :href="this.DOWNLOAD_ATTACHMENT+'?path='+detail.suratKuasaImage+'&sessionId='+sessionId"
             target="_blank"
           >
             {{detail.suratKuasaImage?
@@ -1046,6 +1046,8 @@ export default {
       // _data.userType = 3;
       this.URL_UPLOAD_KTP = process.env.UPLOAD_IMAGE;
       this.URL_UPLOAD_SK = process.env.UPLOAD_FILE;
+      this.SHOW_IMAGE = process.env.SHOW_IMAGE;
+      this.DOWNLOAD_ATTACHMENT = process.env.DOWNLOAD_ATTACHMENT;
       this.upload_ktp["sessionId"] = this.sessionId;
       this.upload_sk["sessionId"] = this.sessionId;
 
