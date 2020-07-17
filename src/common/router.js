@@ -3,12 +3,17 @@
  */
 import Login from '../pages/Login.vue'
 import Main from '../pages/Main.vue'
+import ResetPassword from '../pages/ResetPassword.vue'
 
 const routes = [{
   path: '/login',
   component: Login
-  },
-  {
+}, {
+  path: '/reset-password',
+  component: ResetPassword
+},
+
+{
   name: 'Lender Control',
   path: '/',
   redirect: '/home',

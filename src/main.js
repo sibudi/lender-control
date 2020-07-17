@@ -62,7 +62,7 @@ Vue.axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 Vue.axios.interceptors.request.use(config =>{
 
-  config.data.sessionId =  DataUtil.sid()||'222' ;
+  config.data.sessionId = DataUtil.sid()||'222' ;
   return config;
 },error =>{});
 
